@@ -1,0 +1,2237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hari Selvam | Grand Line Portfolio</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --gold: #FFD700;
+            --gold2: #FFA500;
+            --red: #CC1C1C;
+            --navy: #0A0E2A;
+            --deep: #060816;
+            --sea: #0D2137;
+            --teal: #00B4D8;
+            --cream: #FFF8DC;
+            --white: #F5F0E8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--deep);
+            color: var(--white);
+            font-family: 'Crimson Text', serif;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* CURSOR */
+        #cur {
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 99999;
+            transition: transform .1s, width .3s, height .3s;
+            mix-blend-mode: difference;
+        }
+
+        #cdot {
+            width: 5px;
+            height: 5px;
+            background: var(--gold);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(180deg, rgba(6, 8, 22, .97) 0%, transparent 100%);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(255, 215, 0, .08);
+        }
+
+        .nav-logo {
+            font-family: 'Pirata One', cursive;
+            font-size: 1.8rem;
+            color: var(--gold);
+            text-shadow: 0 0 20px rgba(255, 215, 0, .5);
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 26px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Cinzel', serif;
+            color: var(--cream);
+            text-decoration: none;
+            font-size: .68rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            transition: color .3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transition: transform .3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* SCENE */
+        #scene {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        #sky {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, #010210 0%, #030920 25%, #061540 55%, #091c3e 70%, #05101e 88%, #020710 100%);
+        }
+
+        #stars-c {
+            position: absolute;
+            inset: 0;
+        }
+
+        #moon {
+            position: absolute;
+            top: 8%;
+            right: 10%;
+            width: 105px;
+            height: 105px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 32% 32%, #fffde0, #f5d060 42%, #c8900a 100%);
+            box-shadow: 0 0 70px 22px rgba(255, 215, 0, .28), 0 0 150px 50px rgba(255, 180, 0, .11);
+            animation: moonP 6s ease-in-out infinite;
+        }
+
+        @keyframes moonP {
+
+            0%,
+            100% {
+                box-shadow: 0 0 70px 22px rgba(255, 215, 0, .28);
+            }
+
+            50% {
+                box-shadow: 0 0 110px 40px rgba(255, 215, 0, .52), 0 0 220px 80px rgba(255, 180, 0, .2);
+            }
+        }
+
+        .cloud {
+            position: absolute;
+            opacity: .15;
+            animation: driftC var(--spd) linear infinite;
+            filter: blur(1.5px);
+        }
+
+        @keyframes driftC {
+            from {
+                transform: translateX(-600px);
+            }
+
+            to {
+                transform: translateX(112vw);
+            }
+        }
+
+        #ocean-c {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 58%;
+        }
+
+        /* CREW PARADE */
+        #crew-parade {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .crew-member {
+            position: absolute;
+            bottom: 13%;
+            transition: opacity 1s ease;
+            opacity: 0;
+            pointer-events: auto;
+        }
+
+        .crew-member .cname {
+            position: absolute;
+            bottom: 106%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(6, 8, 22, .97);
+            border: 1px solid var(--gold);
+            padding: 4px 10px;
+            font-family: 'Cinzel', serif;
+            font-size: .58rem;
+            letter-spacing: 2px;
+            color: var(--gold);
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity .3s;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .crew-member:hover .cname {
+            opacity: 1;
+        }
+
+        .crew-member .crole {
+            position: absolute;
+            bottom: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Cinzel', serif;
+            font-size: .52rem;
+            letter-spacing: 1px;
+            color: rgba(255, 215, 0, .5);
+            white-space: nowrap;
+        }
+
+        /* SHIP */
+        #ship-wrap {
+            position: absolute;
+            bottom: 14%;
+            left: -950px;
+            will-change: transform;
+        }
+
+        /* SCROLL CONTENT */
+        #scroll-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-sec {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* HERO */
+        #ht {
+            text-align: center;
+            z-index: 20;
+            padding-top: 6vh;
+        }
+
+        .heyebrow {
+            font-family: 'Cinzel', serif;
+            font-size: .85rem;
+            letter-spacing: 8px;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 18px;
+            animation: gP 2.5s ease-in-out infinite;
+        }
+
+        @keyframes gP {
+
+            0%,
+            100% {
+                text-shadow: 0 0 10px rgba(255, 215, 0, .3);
+            }
+
+            50% {
+                text-shadow: 0 0 35px rgba(255, 215, 0, .9), 0 0 70px rgba(255, 165, 0, .4);
+            }
+        }
+
+        .hname {
+            font-family: 'Pirata One', cursive;
+            font-size: clamp(4.5rem, 11vw, 9rem);
+            line-height: .9;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 40%, #FF4500 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 40px rgba(255, 165, 0, .5));
+            animation: nS 3s ease-in-out infinite;
+        }
+
+        @keyframes nS {
+
+            0%,
+            100% {
+                filter: drop-shadow(0 0 30px rgba(255, 165, 0, .4));
+            }
+
+            50% {
+                filter: drop-shadow(0 0 70px rgba(255, 215, 0, .9));
+            }
+        }
+
+        .hrole {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            color: var(--teal);
+            letter-spacing: 5px;
+            margin-top: 12px;
+            text-transform: uppercase;
+        }
+
+        .hquote {
+            font-style: italic;
+            font-size: 1.2rem;
+            color: rgba(255, 248, 220, .85);
+            max-width: 480px;
+            margin: 28px auto;
+            border-left: 3px solid var(--gold);
+            padding-left: 18px;
+            text-align: left;
+        }
+
+        .hcta {
+            display: inline-block;
+            font-family: 'Cinzel', serif;
+            font-size: .82rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: 14px 48px;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: color .35s;
+            margin-top: 10px;
+        }
+
+        .hcta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gold);
+            transition: left .35s;
+            z-index: -1;
+        }
+
+        .hcta:hover {
+            color: var(--deep);
+        }
+
+        .hcta:hover::before {
+            left: 0;
+        }
+
+        .sind {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            animation: bD 2s ease-in-out infinite;
+        }
+
+        .sind span {
+            font-family: 'Cinzel', serif;
+            font-size: .65rem;
+            letter-spacing: 3px;
+            color: var(--gold);
+            opacity: .7;
+        }
+
+        .sarr {
+            width: 16px;
+            height: 16px;
+            border-right: 2px solid var(--gold);
+            border-bottom: 2px solid var(--gold);
+            transform: rotate(45deg);
+            opacity: .7;
+        }
+
+        @keyframes bD {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(10px);
+            }
+        }
+
+        /* SECTIONS */
+        section.cs {
+            position: relative;
+            z-index: 10;
+            padding: 85px 60px;
+        }
+
+        .secdiv {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 52px;
+        }
+
+        .dl {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .stl {
+            font-family: 'Pirata One', cursive;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            color: var(--gold);
+            text-shadow: 0 0 20px rgba(255, 215, 0, .3);
+            letter-spacing: 3px;
+            white-space: nowrap;
+        }
+
+        /* ABOUT */
+        .agrid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 65px;
+            max-width: 1020px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .pw {
+            position: relative;
+            max-width: 330px;
+        }
+
+        .pb {
+            width: 100%;
+            aspect-ratio: 3/4;
+            border: 3px solid var(--gold);
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--navy), var(--sea));
+        }
+
+        .pb::before {
+            content: '';
+            position: absolute;
+            inset: 10px;
+            border: 1px solid rgba(255, 215, 0, .3);
+            z-index: 2;
+        }
+
+        .pinit {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Pirata One', cursive;
+            font-size: 9rem;
+            color: rgba(255, 215, 0, .12);
+            animation: breathe 4s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.06);
+            }
+        }
+
+        .pglow {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 70%, rgba(255, 165, 0, .18) 0%, transparent 70%);
+        }
+
+        .pnc {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(0deg, rgba(6, 8, 22, .97) 0%, transparent 100%);
+            padding: 25px 16px 16px;
+            text-align: center;
+        }
+
+        .pnc h2 {
+            font-family: 'Pirata One', cursive;
+            font-size: 1.65rem;
+            color: var(--gold);
+        }
+
+        .pnc p {
+            font-family: 'Cinzel', serif;
+            font-size: .62rem;
+            letter-spacing: 3px;
+            color: var(--teal);
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        .pco {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-color: var(--gold);
+            border-style: solid;
+            z-index: 3;
+        }
+
+        .pco.tl {
+            top: -2px;
+            left: -2px;
+            border-width: 3px 0 0 3px;
+        }
+
+        .pco.tr {
+            top: -2px;
+            right: -2px;
+            border-width: 3px 3px 0 0;
+        }
+
+        .pco.bl {
+            bottom: -2px;
+            left: -2px;
+            border-width: 0 0 3px 3px;
+        }
+
+        .pco.br {
+            bottom: -2px;
+            right: -2px;
+            border-width: 0 3px 3px 0;
+        }
+
+        .wb {
+            position: absolute;
+            top: 16px;
+            right: -20px;
+            background: var(--red);
+            border: 2px solid var(--gold);
+            padding: 8px 12px;
+            font-family: 'Cinzel', serif;
+            font-size: .62rem;
+            color: var(--gold);
+            letter-spacing: 1px;
+            transform: rotate(5deg);
+            z-index: 5;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, .6);
+            text-align: center;
+        }
+
+        .wb .amt {
+            font-size: .95rem;
+            font-weight: 700;
+            display: block;
+            margin-top: 2px;
+        }
+
+        .at h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.35rem;
+            color: var(--gold);
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+
+        .at p {
+            font-size: 1.08rem;
+            line-height: 1.9;
+            color: rgba(245, 240, 232, .85);
+            margin-bottom: 14px;
+        }
+
+        .cl {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+            margin-top: 22px;
+            padding-top: 22px;
+            border-top: 1px solid rgba(255, 215, 0, .2);
+        }
+
+        .ci {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            font-family: 'Cinzel', serif;
+            font-size: .78rem;
+            letter-spacing: 1px;
+        }
+
+        .ci .ico {
+            font-size: 1rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .ci a {
+            color: var(--teal);
+            text-decoration: none;
+            transition: color .3s;
+        }
+
+        .ci a:hover {
+            color: var(--gold);
+        }
+
+        /* SKILLS */
+        .skg {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+        .skc {
+            background: linear-gradient(135deg, rgba(10, 14, 42, .92), rgba(13, 33, 55, .92));
+            border: 1px solid rgba(255, 215, 0, .18);
+            padding: 26px 20px;
+            position: relative;
+            overflow: hidden;
+            transition: all .4s;
+        }
+
+        .skc::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 0;
+            background: var(--gold);
+            transition: height .4s;
+        }
+
+        .skc:hover {
+            border-color: rgba(255, 215, 0, .55);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .4);
+        }
+
+        .skc:hover::before {
+            height: 100%;
+        }
+
+        .skie {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .sknm {
+            font-family: 'Cinzel', serif;
+            font-size: .82rem;
+            letter-spacing: 2px;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .sksb {
+            font-size: .77rem;
+            color: rgba(245, 240, 232, .5);
+            margin-bottom: 10px;
+        }
+
+        .skbb {
+            width: 100%;
+            height: 3px;
+            background: rgba(255, 255, 255, .08);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .skb {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold), var(--gold2));
+            border-radius: 2px;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 1.4s cubic-bezier(.25, .46, .45, .94);
+        }
+
+        .skc.on .skb {
+            transform: scaleX(1);
+        }
+
+        /* PROJECTS */
+        .proj-list {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .pjc {
+            background: linear-gradient(135deg, rgba(10, 14, 42, .96), rgba(13, 33, 55, .96));
+            border: 1px solid rgba(255, 215, 0, .25);
+            padding: 44px;
+            position: relative;
+            overflow: hidden;
+            transition: transform .4s, box-shadow .4s;
+        }
+
+        .pjc:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, .5);
+        }
+
+        .pjc::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at center, rgba(255, 215, 0, .03) 0%, transparent 60%);
+            animation: rotS 25s linear infinite;
+        }
+
+        @keyframes rotS {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .pnum {
+            font-family: 'Pirata One', cursive;
+            font-size: 6rem;
+            color: rgba(255, 215, 0, .05);
+            position: absolute;
+            top: 8px;
+            right: 22px;
+            line-height: 1;
+        }
+
+        .pbdg {
+            display: inline-block;
+            font-family: 'Cinzel', serif;
+            font-size: .65rem;
+            letter-spacing: 3px;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            padding: 5px 13px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .ptit {
+            font-family: 'Pirata One', cursive;
+            font-size: 2.1rem;
+            color: var(--white);
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+
+        .pdes {
+            font-size: 1.05rem;
+            line-height: 1.85;
+            color: rgba(245, 240, 232, .8);
+            margin-bottom: 12px;
+        }
+
+        .ptgs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .ptg {
+            font-family: 'Cinzel', serif;
+            font-size: .64rem;
+            letter-spacing: 2px;
+            padding: 4px 13px;
+            border: 1px solid rgba(0, 180, 216, .4);
+            color: var(--teal);
+            text-transform: uppercase;
+        }
+
+        /* EDUCATION */
+        .ew {
+            max-width: 740px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .tsp {
+            position: absolute;
+            left: 26px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--gold), var(--gold2), transparent);
+        }
+
+        .ei {
+            padding: 0 0 44px 72px;
+            position: relative;
+        }
+
+        .edot {
+            position: absolute;
+            left: 16px;
+            top: 4px;
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            background: var(--deep);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .edot::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+        }
+
+        .eyr {
+            font-family: 'Cinzel', serif;
+            font-size: .7rem;
+            letter-spacing: 3px;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .etit {
+            font-family: 'Pirata One', cursive;
+            font-size: 1.35rem;
+            color: var(--white);
+            letter-spacing: 1px;
+            margin-bottom: 3px;
+        }
+
+        .einst {
+            font-family: 'Cinzel', serif;
+            font-size: .78rem;
+            color: var(--teal);
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .egrd {
+            font-size: .95rem;
+            color: rgba(245, 240, 232, .7);
+        }
+
+        .egrd strong {
+            color: var(--gold);
+        }
+
+        /* CERTS */
+        .cg {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+        .cc {
+            background: linear-gradient(135deg, rgba(10, 14, 42, .9), rgba(13, 33, 55, .9));
+            border: 1px solid rgba(255, 215, 0, .12);
+            padding: 22px;
+            position: relative;
+            overflow: hidden;
+            transition: all .35s;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .cc.on {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cc::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--gold2));
+            transform: scaleX(0);
+            transition: transform .35s;
+            transform-origin: left;
+        }
+
+        .cc:hover {
+            border-color: rgba(255, 215, 0, .4);
+            transform: translateY(-4px);
+        }
+
+        .cc:hover::after {
+            transform: scaleX(1);
+        }
+
+        .cnm {
+            font-family: 'Pirata One', cursive;
+            font-size: 2.8rem;
+            color: rgba(255, 215, 0, .06);
+            position: absolute;
+            top: -5px;
+            right: 10px;
+            line-height: 1;
+        }
+
+        .csl {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .cna {
+            font-family: 'Cinzel', serif;
+            font-size: .8rem;
+            letter-spacing: 1px;
+            color: var(--white);
+            margin-bottom: 6px;
+            line-height: 1.5;
+        }
+
+        .cor {
+            font-size: .76rem;
+            color: var(--teal);
+            font-style: italic;
+        }
+
+        /* CONNECT */
+        .sls {
+            display: flex;
+            justify-content: center;
+            gap: 22px;
+            flex-wrap: wrap;
+        }
+
+        .sl {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 15px 35px;
+            border: 2px solid rgba(255, 215, 0, .4);
+            font-family: 'Cinzel', serif;
+            font-size: .78rem;
+            letter-spacing: 2px;
+            color: var(--white);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: all .4s;
+            text-transform: uppercase;
+        }
+
+        .sl::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gold);
+            transform: translateX(-100%);
+            transition: transform .4s;
+            z-index: 0;
+        }
+
+        .sl:hover::before {
+            transform: translateX(0);
+        }
+
+        .sl:hover {
+            color: var(--deep);
+            border-color: var(--gold);
+        }
+
+        .sl span,
+        .sl .sico {
+            position: relative;
+            z-index: 1;
+        }
+
+        .sico {
+            font-size: 1.2rem;
+        }
+
+        footer {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 32px;
+            border-top: 1px solid rgba(255, 215, 0, .1);
+            background: rgba(6, 8, 22, .96);
+        }
+
+        footer p {
+            font-family: 'Cinzel', serif;
+            font-size: .68rem;
+            letter-spacing: 3px;
+            color: rgba(245, 240, 232, .3);
+            text-transform: uppercase;
+        }
+
+        .gd {
+            color: var(--gold);
+            opacity: .75;
+        }
+
+        .fu {
+            opacity: 0;
+            transform: translateY(38px);
+            transition: all .82s cubic-bezier(.25, .46, .45, .94);
+        }
+
+        .fu.on {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes pFl {
+            0% {
+                opacity: 0;
+                transform: translateY(0) scale(0) rotate(0deg);
+            }
+
+            15% {
+                opacity: .9;
+            }
+
+            85% {
+                opacity: .3;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-110vh) scale(.2) rotate(720deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="cur"></div>
+    <div id="cdot"></div>
+
+    <!-- FIXED SCENE -->
+    <div id="scene">
+        <div id="sky"></div>
+        <canvas id="stars-c"></canvas>
+        <div id="moon"></div>
+        <!-- Clouds -->
+        <div class="cloud" style="top:9%;--spd:48s;animation-delay:-6s;"><svg width="300" height="80">
+                <ellipse cx="80" cy="55" rx="80" ry="29" fill="white" />
+                <ellipse cx="155" cy="40" rx="90" ry="40" fill="white" />
+                <ellipse cx="230" cy="54" rx="70" ry="27" fill="white" />
+            </svg></div>
+        <div class="cloud" style="top:16%;--spd:68s;animation-delay:-28s;"><svg width="210" height="65">
+                <ellipse cx="58" cy="46" rx="58" ry="22" fill="white" />
+                <ellipse cx="115" cy="32" rx="68" ry="30" fill="white" />
+                <ellipse cx="170" cy="45" rx="50" ry="20" fill="white" />
+            </svg></div>
+        <div class="cloud" style="top:4%;--spd:55s;animation-delay:-42s;"><svg width="250" height="70">
+                <ellipse cx="68" cy="50" rx="68" ry="25" fill="white" />
+                <ellipse cx="138" cy="34" rx="80" ry="34" fill="white" />
+                <ellipse cx="205" cy="50" rx="58" ry="22" fill="white" />
+            </svg></div>
+
+        <div id="crew-parade">
+            <!-- Ship inserted by JS -->
+            <div id="ship-wrap"></div>
+            <!-- Crew members inserted by JS -->
+        </div>
+        <canvas id="ocean-c"></canvas>
+    </div>
+
+    <nav>
+        <div class="nav-logo">⚓ H·S</div>
+        <ul class="nav-links">
+            <li><a href="#about">Nakama</a></li>
+            <li><a href="#skills">Arsenal</a></li>
+            <li><a href="#projects">Quests</a></li>
+            <li><a href="#education">Voyage</a></li>
+            <li><a href="#certifications">Devil Fruits</a></li>
+            <li><a href="#connect">Log Pose</a></li>
+        </ul>
+    </nav>
+
+    <div id="scroll-content">
+        <!-- HERO -->
+        <div class="hero-sec">
+            <div id="ht">
+                <div class="heyebrow">⚓ The Grand Line Engineer ⚓</div>
+                <h1 class="hname">HARI<br>SELVAM</h1>
+                <div class="hrole">Electronic & Communication Engineering</div>
+                <blockquote class="hquote">"I don't want to conquer anything. I just think the guy with the most freedom
+                    in this whole ocean is the Pirate King!"</blockquote>
+                <a href="#about" class="hcta">Set Sail →</a>
+            </div>
+            <div class="sind"><span>SCROLL</span>
+                <div class="sarr"></div>
+            </div>
+        </div>
+
+        <!-- ABOUT -->
+        <section class="cs" id="about"
+            style="background:linear-gradient(180deg,rgba(6,8,22,.72) 0%,rgba(10,14,42,.94) 100%);">
+            <div class="secdiv">
+                <div class="dl"></div>
+                <h2 class="stl">⚓ The Pirate's Log ⚓</h2>
+                <div class="dl"></div>
+            </div>
+            <div class="agrid">
+                <div class="pw fu">
+                    <div class="pb">
+                        <div class="pinit">HS</div>
+                        <div class="pglow"></div>
+                        <div class="pnc">
+                            <h2>Hari Selvam</h2>
+                            <p>Full Stack Pirate</p>
+                        </div>
+                    </div>
+                    <div class="pco tl"></div>
+                    <div class="pco tr"></div>
+                    <div class="pco bl"></div>
+                    <div class="pco br"></div>
+                    <div class="wb">WANTED<br>ENGINEER<span class="amt">CLASS '28</span></div>
+                </div>
+                <div class="at fu" style="transition-delay:.2s">
+                    <h3>About the Pirate</h3>
+                    <p>I am a second-year Electronics and Communication Engineering student, sailing through the Grand
+                        Line of technology with a strong interest in Computer Science and emerging technologies.</p>
+
+                    <p>Passionate about learning new things, I continuously work to improve my technical and
+                        problem-solving skills. Alongside my core electronics studies, I explore programming, software
+                        development, and modern technology-driven solutions to expand my abilities beyond boundaries.
+                    </p>
+
+                    <p>Like an explorer chasing new horizons, I take on projects and challenges that strengthen my
+                        knowledge, gain practical experience, and prepare me to contribute to innovative missions in
+                        both electronics and computer science.</p>
+
+                    <p>My journey is driven by curiosity, growth, and the ambition to become a versatile engineer
+                        capable of making a meaningful impact in the digital world.</p>
+                    <div class="cl">
+                        <div class="ci"><span class="ico">📞</span><span>9894455113</span></div>
+                        <div class="ci"><span class="ico">📧</span><a
+                                href="mailto:hariii.selvam@gmail.com">hariii.selvam@gmail.com</a></div>
+                        <div class="ci"><span class="ico">💻</span><a href="https://github.com/hariselvam-eng"
+                                target="_blank">github.com/hariselvam-eng</a></div>
+                        <div class="ci"><span class="ico">📸</span><a href="https://www.instagram.com/hariii.selvam/"
+                                target="_blank">@hariii.selvam</a></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS -->
+        <section class="cs" id="skills"
+            style="background:linear-gradient(180deg,rgba(10,14,42,.94),rgba(13,33,55,.96));">
+            <div class="secdiv">
+                <div class="dl"></div>
+                <h2 class="stl">⚔️ The Pirate's Arsenal ⚔️</h2>
+                <div class="dl"></div>
+            </div>
+            <div class="skg">
+                <div class="skc fu">
+                    <div class="skie">🐍</div>
+                    <div class="sknm">Python</div>
+                    <div class="sksb">OpenCV · YOLO · Tkinter · MySQL</div>
+                    <div class="skbb">
+                        <div class="skb" style="width:72%"></div>
+                    </div>
+                </div>
+                <div class="skc fu">
+                    <div class="skie">⚛️</div>
+                    <div class="sknm">React</div>
+                    <div class="sksb">Components · Hooks · JSX · State Management</div>
+                    <div class="skbb">
+                        <div class="skb" style="width:72%"></div>
+                    </div>
+                </div>
+                <div class="skc fu">
+                    <div class="skie">🌐</div>
+                    <div class="sknm">HTML</div>
+                    <div class="sksb">Semantic Tags · Forms · Structure · Accessibility</div>
+                    <div class="skbb">
+                        <div class="skb" style="width:90%"></div>
+                    </div>
+                </div>
+                <div class="skc fu">
+                    <div class="skie">🎨</div>
+                    <div class="sknm">CSS</div>
+                    <div class="sksb">Flexbox · Grid · Animations · Responsive Design</div>
+                    <div class="skbb">
+                        <div class="skb" style="width:85%"></div>
+                    </div>
+                </div>
+                <div class="skc fu">
+                    <div class="skie">⚡</div>
+                    <div class="sknm">JavaScript</div>
+                    <div class="sksb">DOM · Events · Functions · Basic Logic</div>
+                    <div class="skbb">
+                        <div class="skb" style="width:75%"></div>
+                    </div>
+                </div>
+                <div class="skc fu">
+                    <div class="skie">🅱️</div>
+                    <div class="sknm">Bootstrap</div>
+                    <div class="sksb">Grid System · Components · Responsive Layout</div>
+                    <div class="skbb">
+                        <div class="skb" style="width:80%"></div>
+                    </div>
+                </div>
+                <div class="skc fu">
+                    <div class="skie">🤖</div>
+                    <div class="sknm">Artificial Intelligence</div>
+                    <div class="sksb">Basics · Computer Vision · Object Detection</div>
+                    <div class="skbb">
+                        <div class="skb" style="width:65%"></div>
+                    </div>
+                </div>
+                <div class="skc fu">
+                    <div class="skie">🧠</div>
+                    <div class="sknm">Machine Learning</div>
+                    <div class="sksb">Supervised Learning · Model Training · Data Processing</div>
+                    <div class="skbb">
+                        <div class="skb" style="width:60%"></div>
+                    </div>
+                </div>
+                <div class="skc fu" style="transition-delay:.08s">
+                    <div class="skie">⚙️</div>
+                    <div class="sknm">C / C++</div>
+                    <div class="sksb">Systems · Logic · Algorithms</div>
+                    <div class="skbb">
+                        <div class="skb" style="width:65%"></div>
+                    </div>
+                </div>
+                <div class="skc fu" style="transition-delay:.16s">
+                    <div class="skie">🗄️</div>
+                    <div class="sknm">MySQL</div>
+                    <div class="sksb">Schema Design · ERP · Queries</div>
+                    <div class="skbb">
+                        <div class="skb" style="width:60%"></div>
+                    </div>
+                </div>
+                <div class="skc fu" style="transition-delay:.24s">
+                    <div class="skie">📐</div>
+                    <div class="sknm">AutoCAD</div>
+                    <div class="sksb">Technical Drafting</div>
+                    <div class="skbb">
+                        <div class="skb" style="width:55%"></div>
+                    </div>
+                </div>
+                <div class="skc fu" style="transition-delay:.32s">
+                    <div class="skie">💼</div>
+                    <div class="sknm">MS Office</div>
+                    <div class="sksb">Word · Excel · PowerPoint</div>
+                    <div class="skbb">
+                        <div class="skb" style="width:85%"></div>
+                    </div>
+                </div>
+                <div class="skc fu" style="transition-delay:.4s">
+                    <div class="skie">⌨️</div>
+                    <div class="sknm">Typewriting</div>
+                    <div class="sksb">English & Tamil Higher</div>
+                    <div class="skbb">
+                        <div class="skb" style="width:90%"></div>
+                    </div>
+                </div>
+                <div class="skc fu" style="transition-delay:.48s">
+                    <div class="skie">🚁</div>
+                    <div class="sknm">Computer Vision</div>
+                    <div class="sksb">Object Detection · YOLO</div>
+                    <div class="skbb">
+                        <div class="skb" style="width:60%"></div>
+                    </div>
+                </div>
+                <div class="skc fu" style="transition-delay:.56s">
+                    <div class="skie">🖥️</div>
+                    <div class="sknm">Desktop Dev</div>
+                    <div class="sksb">Tkinter · GUI · ERP Systems</div>
+                    <div class="skbb">
+                        <div class="skb" style="width:58%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section class="cs" id="projects"
+            style="background:linear-gradient(180deg,rgba(13,33,55,.96),rgba(10,14,42,.94));">
+            <div class="secdiv">
+                <div class="dl"></div>
+                <h2 class="stl">🗺️ Epic Quests 🗺️</h2>
+                <div class="dl"></div>
+            </div>
+            <div class="proj-list">
+
+                <!-- PROJECT 1 -->
+                <div class="pjc fu">
+                    <div class="pnum">01</div>
+                    <div class="pbdg">⚓ Computer Vision · Python</div>
+                    <h3 class="ptit">Drone Based Population Detecting</h3>
+                    <p class="pdes">A simulated drone surveillance system to estimate population density using aerial
+                        images and YOLO-based object detection. Created a virtual environment to model drone flight
+                        paths and capture synthetic crowd data.</p>
+                    <p class="pdes">Implemented real-time human detection and counting with Python and OpenCV — allowing
+                        for accurate population analysis without the need for physical hardware.</p>
+                    <p class="pdes" style="font-style:italic;color:rgba(255,215,0,.75)">"Like the Den Den Mushi, this
+                        system sees all — tracking the tides of human movement from the skies above."</p>
+                    <div class="ptgs"><span class="ptg">Python</span><span class="ptg">OpenCV</span><span
+                            class="ptg">YOLO</span><span class="ptg">Drone Simulation</span><span class="ptg">Computer
+                            Vision</span></div>
+                </div>
+
+                <!-- PROJECT 2 -->
+                <div class="pjc fu" style="transition-delay:.15s">
+                    <div class="pnum">02</div>
+                    <div class="pbdg">🏫 Desktop ERP · Python · MySQL</div>
+                    <h3 class="ptit">School Enrollment System</h3>
+                    <p class="pdes">A full-featured desktop School ERP application built with Python, Tkinter, and MySQL
+                        using a 3-tier architecture. The system handles complete student and staff lifecycle management
+                        for schools.</p>
+                    <p class="pdes">Features include multi-role authentication (Admin / Staff / Student portals) with
+                        bcrypt password hashing, complete student enrollment with photo upload and auto-generated
+                        admission numbers, staff management with subject/class assignments, daily attendance tracking
+                        with monthly summaries, fee management with receipt generation, PDF/Excel report exports via
+                        ReportLab and openpyxl, ID card generation with QR codes, email/SMS notifications, and a
+                        comprehensive audit log system.</p>
+                    <p class="pdes" style="font-style:italic;color:rgba(255,215,0,.75)">"Like the Straw Hats' Vivre Card
+                        system — every student and staff member tracked across the Grand Line of academia."</p>
+                    <div class="ptgs"><span class="ptg">Python</span><span class="ptg">Tkinter</span><span
+                            class="ptg">MySQL</span><span class="ptg">ReportLab</span><span
+                            class="ptg">bcrypt</span><span class="ptg">openpyxl</span><span
+                            class="ptg">smtplib</span><span class="ptg">FPDF2</span><span class="ptg">ERP</span></div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- EDUCATION -->
+        <section class="cs" id="education"
+            style="background:linear-gradient(180deg,rgba(10,14,42,.94),rgba(13,33,55,.96));">
+            <div class="secdiv">
+                <div class="dl"></div>
+                <h2 class="stl">🌊 The Voyage Log 🌊</h2>
+                <div class="dl"></div>
+            </div>
+            <div class="ew">
+                <div class="tsp"></div>
+                <div class="ei fu">
+                    <div class="edot"></div>
+                    <div class="eyr">2024 — 2028</div>
+                    <div class="etit">B.E. Electronic & Communication Engineering</div>
+                    <div class="einst">Sri Venkateshwara College of Engineering, Sriperumbudur</div>
+                    <div class="egrd">Currently Navigating the Grand Line of ECE</div>
+                </div>
+                <div class="ei fu" style="transition-delay:.2s">
+                    <div class="edot"></div>
+                    <div class="eyr">2024 · Class XII HSE</div>
+                    <div class="etit">Higher Secondary Education</div>
+                    <div class="einst">Sowdaambikaa Matric Higher Secondary School, Trichy</div>
+                    <div class="egrd">Aggregate: <strong>78.16%</strong></div>
+                </div>
+                <div class="ei fu" style="transition-delay:.4s">
+                    <div class="edot"></div>
+                    <div class="eyr">2022 · Class X SSLC</div>
+                    <div class="etit">Secondary School Education</div>
+                    <div class="einst">Sowdaambikaa Matric Higher Secondary School, Trichy</div>
+                    <div class="egrd">Aggregate: <strong>82.8%</strong></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CERTIFICATIONS -->
+        <section class="cs" id="certifications"
+            style="background:linear-gradient(180deg,rgba(13,33,55,.96),rgba(10,14,42,.94));">
+            <div class="secdiv">
+                <div class="dl"></div>
+                <h2 class="stl">📜 Devil Fruits Earned 📜</h2>
+                <div class="dl"></div>
+            </div>
+            <div class="cg">
+                <div class="cc">
+                    <div class="cnm">01</div>
+                    <div class="csl">🍎</div>
+                    <div class="cna">Basic C Programming</div>
+                    <div class="cor">Great Learning</div>
+                </div>
+                <div class="cc">
+                    <div class="cnm">02</div>
+                    <div class="csl">🐍</div>
+                    <div class="cna">Python Developer</div>
+                    <div class="cor"></div>
+                </div>
+                <div class="cc">
+                    <div class="cnm">03</div>
+                    <div class="csl"></div>
+                    <div class="cna">🌐⚓ Front-End Developer of the Code Seas</div>
+                    <div class="cor"></div>
+                </div>
+                <div class="cc">
+                    <div class="cnm">04</div>
+                    <div class="csl">⚡</div>
+                    <div class="cna">Energy Literacy Training</div>
+                    <div class="cor">Energy Swaraj Foundation</div>
+                </div>
+                <div class="cc">
+                    <div class="cnm">05</div>
+                    <div class="csl">💡</div>
+                    <div class="cna">Problem Solving & Innovation</div>
+                    <div class="cor">Wadhwani Foundation</div>
+                </div>
+                <div class="cc">
+                    <div class="cnm">06</div>
+                    <div class="csl">🖥️</div>
+                    <div class="cna">Computer on Office Automation</div>
+                    <div class="cor">TN Director of Technical Education</div>
+                </div>
+                <div class="cc">
+                    <div class="cnm">07</div>
+                    <div class="csl">⌨️</div>
+                    <div class="cna">Typewriting English Higher & Lower</div>
+                    <div class="cor">TN Director of Technical Education</div>
+                </div>
+                <div class="cc">
+                    <div class="cnm">08</div>
+                    <div class="csl">🔤</div>
+                    <div class="cna">Typewriting Tamil Higher & Lower</div>
+                    <div class="cor">TN Director of Technical Education</div>
+                </div>
+                <div class="cc">
+                    <div class="cnm">09</div>
+                    <div class="csl">🔤</div>
+                    <div class="cna">Typewriting Tamil Higher & Lower</div>
+                    <div class="cor">TN Director of Technical Education</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONNECT -->
+        <section class="cs" id="connect"
+            style="text-align:center;background:linear-gradient(180deg,rgba(10,14,42,.94),rgba(6,8,22,.98));">
+            <div class="secdiv">
+                <div class="dl"></div>
+                <h2 class="stl">⚓ The Log Pose ⚓</h2>
+                <div class="dl"></div>
+            </div>
+            <h3
+                style="font-family:'Pirata One',cursive;font-size:clamp(2rem,5vw,3.6rem);color:var(--gold);margin-bottom:14px;animation:gP 3s ease-in-out infinite;">
+                Join the Crew</h3>
+            <p style="font-style:italic;font-size:1.15rem;color:rgba(245,240,232,.7);margin-bottom:50px;">"A man who
+                can't feel the winds of the sea is not a real navigator."</p>
+            <div class="sls">
+                <a href="mailto:hariii.selvam@gmail.com" class="sl"><span class="sico">📧</span><span>Transponder
+                        Snail</span></a>
+                <a href="https://github.com/hariselvam-eng" target="_blank" class="sl"><span
+                        class="sico">⚓</span><span>GitHub Logbook</span></a>
+                <a href="https://www.instagram.com/hariii.selvam/" target="_blank" class="sl"><span
+                        class="sico">📸</span><span>Instagram</span></a>
+                <a href="https://www.linkedin.com/in/hari-selvam" target="_blank" class="sl"><span
+                        class="sico">🌐</span><span>LinkedIn</span></a>
+            </div>
+        </section>
+
+        <footer>
+            <p>⚓ <span class="gd">HARI SELVAM</span> · ALL BLUE AWAITS · ECE CLASS 2028 ⚓</p>
+            <p style="margin-top:7px;font-size:.6rem;">"If you don't take risks, you can't create a future." — Monkey D.
+                Luffy</p>
+        </footer>
+        <audio id="bg-music" autoplay loop muted>
+    <source src="music/one_piece_battle.mp3" type="audio/mpeg">
+</audio>
+    </div>
+
+    <script>
+        window.addEventListener("load", function() {
+    const music = document.getElementById("bg-music");
+    music.muted = false;
+
+    const playPromise = music.play();
+
+    if (playPromise !== undefined) {
+        playPromise.catch(() => {
+            music.muted = true;
+            music.play();
+        });
+    }
+});
+        // ============================================================
+        // CURSOR
+        // ============================================================
+        const cur = document.getElementById('cur'), cdot = document.getElementById('cdot');
+        let mx = 0, my = 0, cx = 0, cy = 0;
+        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+        (function aC() { cx += (mx - cx) * .14; cy += (my - cy) * .14; cur.style.left = (cx - 11) + 'px'; cur.style.top = (cy - 11) + 'px'; cdot.style.left = mx + 'px'; cdot.style.top = my + 'px'; requestAnimationFrame(aC); })();
+        document.addEventListener('mousedown', () => cur.style.transform = 'scale(.6)');
+        document.addEventListener('mouseup', () => cur.style.transform = 'scale(1)');
+        document.querySelectorAll('a,.skc,.cc,.pjc').forEach(el => { el.addEventListener('mouseenter', () => { cur.style.width = '42px'; cur.style.height = '42px'; }); el.addEventListener('mouseleave', () => { cur.style.width = '22px'; cur.style.height = '22px'; }); });
+
+        // ============================================================
+        // STARS
+        // ============================================================
+        const sc = document.getElementById('stars-c');
+        function rsz() { sc.width = window.innerWidth; sc.height = window.innerHeight; } rsz(); window.addEventListener('resize', rsz);
+        const sx = sc.getContext('2d');
+        const STARS = Array.from({ length: 320 }, () => ({ x: Math.random() * sc.width, y: Math.random() * sc.height * .65, r: Math.random() * 1.9 + .3, t: Math.random() * Math.PI * 2, s: Math.random() * .025 + .006, h: Math.random() > .9 }));
+        (function dS() { sx.clearRect(0, 0, sc.width, sc.height); STARS.forEach(s => { s.t += s.s; const a = .22 + Math.abs(Math.sin(s.t)) * .78; sx.beginPath(); sx.arc(s.x, s.y, s.r, 0, Math.PI * 2); sx.fillStyle = s.h ? `rgba(255,240,150,${a})` : `rgba(255,255,255,${a})`; sx.fill(); }); requestAnimationFrame(dS); })();
+
+        // ============================================================
+        // OCEAN WAVES
+        // ============================================================
+        const oc = document.getElementById('ocean-c'), ox = oc.getContext('2d');
+        function ro() { oc.width = window.innerWidth; oc.height = window.innerHeight * .58; } ro(); window.addEventListener('resize', ro);
+        const WD = [{ a: 24, f: .0075, p: 0, spd: .017, al: .62, r: 10, g: 65, b: 130 }, { a: 19, f: .0098, p: 1.3, spd: .022, al: .50, r: 7, g: 48, b: 108 }, { a: 15, f: .012, p: 2.5, spd: .028, al: .40, r: 3, g: 32, b: 85 }, { a: 11, f: .015, p: 3.8, spd: .033, al: .30, r: 0, g: 20, b: 65 }, { a: 8, f: .019, p: 5.0, spd: .039, al: .22, r: 0, g: 12, b: 45 }];
+        let wt = 0;
+        (function dO() {
+            ox.clearRect(0, 0, oc.width, oc.height);
+            const bg = ox.createLinearGradient(0, 0, 0, oc.height); bg.addColorStop(0, 'rgba(0,25,60,0)'); bg.addColorStop(.25, 'rgba(5,35,80,.85)'); bg.addColorStop(1, 'rgba(2,8,22,.97)'); ox.fillStyle = bg; ox.fillRect(0, 0, oc.width, oc.height);
+            WD.forEach((w, i) => { const by = oc.height * (.12 + i * .13); ox.beginPath(); ox.moveTo(0, oc.height); for (let x = 0; x <= oc.width; x += 3) { const y = by + Math.sin(x * w.f + wt * w.spd + w.p) * w.a + Math.sin(x * w.f * .55 + wt * w.spd * .65 + w.p) * w.a * .38; ox.lineTo(x, y); } ox.lineTo(oc.width, oc.height); ox.closePath(); const wg = ox.createLinearGradient(0, by - w.a, 0, oc.height); wg.addColorStop(0, `rgba(${w.r},${w.g},${w.b},${w.al})`); wg.addColorStop(1, `rgba(0,5,18,${w.al + .12})`); ox.fillStyle = wg; ox.fill(); });
+            const tw = WD[0]; for (let x = 0; x < oc.width; x += 38) { const y = oc.height * .12 + Math.sin(x * tw.f + wt * tw.spd) * tw.a; const fa = Math.max(0, Math.sin(wt * .09 + x * .05)) * .15; ox.beginPath(); ox.ellipse(x + 12, y, 22, 3.5, 0, 0, Math.PI * 2); ox.fillStyle = `rgba(255,255,255,${fa})`; ox.fill(); const ga = Math.max(0, Math.sin(wt * .11 + x * .07)) * .12; ox.beginPath(); ox.ellipse(x + 5, y - 1, 10, 2, 0, 0, Math.PI * 2); ox.fillStyle = `rgba(255,215,0,${ga})`; ox.fill(); }
+            wt++; requestAnimationFrame(dO);
+        })();
+
+        // ============================================================
+        // SHIP SVG
+        // ============================================================
+        const shipWrap = document.getElementById('ship-wrap');
+        shipWrap.innerHTML = `<svg id="ship-svg" width="560" height="360" viewBox="0 0 560 360">
+<defs>
+<linearGradient id="hg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(160,90,40,.7)"/><stop offset="100%" stop-color="rgba(0,0,0,.5)"/></linearGradient>
+<linearGradient id="sg" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="rgba(255,255,255,0)"/><stop offset="85%" stop-color="rgba(255,248,220,.2)"/><stop offset="100%" stop-color="rgba(255,220,100,.12)"/></linearGradient>
+</defs>
+<ellipse cx="280" cy="352" rx="215" ry="16" fill="rgba(0,0,0,.5)"/>
+<path d="M65 238 Q88 305 150 320 L410 320 Q472 305 495 238 Z" fill="#7B3810"/>
+<path d="M65 238 Q88 305 150 320 L410 320 Q472 305 495 238 Z" fill="url(#hg)"/>
+<line x1="108" y1="243" x2="140" y2="318" stroke="#5C2800" stroke-width="1.5" opacity=".45"/>
+<line x1="162" y1="240" x2="177" y2="319" stroke="#5C2800" stroke-width="1.5" opacity=".45"/>
+<line x1="218" y1="238" x2="224" y2="320" stroke="#5C2800" stroke-width="1.5" opacity=".45"/>
+<line x1="280" y1="237" x2="280" y2="320" stroke="#5C2800" stroke-width="1.5" opacity=".45"/>
+<line x1="342" y1="238" x2="336" y2="320" stroke="#5C2800" stroke-width="1.5" opacity=".45"/>
+<line x1="398" y1="240" x2="383" y2="319" stroke="#5C2800" stroke-width="1.5" opacity=".45"/>
+<line x1="452" y1="243" x2="420" y2="318" stroke="#5C2800" stroke-width="1.5" opacity=".45"/>
+<path d="M65 238 Q88 305 150 320 L410 320 Q472 305 495 238" fill="none" stroke="#FFD700" stroke-width="2.5"/>
+<rect x="60" y="213" width="435" height="28" rx="5" fill="#6B3410"/>
+<rect x="170" y="162" width="210" height="56" rx="6" fill="#7B3810"/>
+<rect x="164" y="157" width="222" height="10" rx="3" fill="#5C2800" stroke="#FFD700" stroke-width="1"/>
+<rect x="182" y="173" width="27" height="20" rx="3" fill="#102840" stroke="#FFD700" stroke-width="1.5"/>
+<rect x="222" y="173" width="27" height="20" rx="3" fill="#102840" stroke="#FFD700" stroke-width="1.5"/>
+<rect x="264" y="173" width="27" height="20" rx="3" fill="#102840" stroke="#FFD700" stroke-width="1.5"/>
+<rect x="304" y="173" width="27" height="20" rx="3" fill="#102840" stroke="#FFD700" stroke-width="1.5"/>
+<rect x="344" y="173" width="27" height="20" rx="3" fill="#102840" stroke="#FFD700" stroke-width="1.5"/>
+<g transform="translate(28,150)">
+  <circle cx="5" cy="40" r="44" fill="#D4920C" opacity=".92"/>
+  <circle cx="5" cy="40" r="30" fill="#F0C030"/>
+  <circle cx="-8" cy="31" r="7.5" fill="white"/><circle cx="18" cy="31" r="7.5" fill="white"/>
+  <circle cx="-8" cy="32" r="4.5" fill="#1a1a2e"/><circle cx="18" cy="32" r="4.5" fill="#1a1a2e"/>
+  <circle cx="-6" cy="30" r="1.8" fill="white"/><circle cx="20" cy="30" r="1.8" fill="white"/>
+  <ellipse cx="5" cy="41" rx="7" ry="4.5" fill="#C87800"/>
+  <path d="M-12 49 Q5 60 22 49" fill="none" stroke="#8B4513" stroke-width="2.5" stroke-linecap="round"/>
+  <rect x="-6" y="49" width="5" height="7" rx="1" fill="white"/><rect x="6" y="49" width="5" height="7" rx="1" fill="white"/>
+  <path d="M-46 19 Q-37 7 -24 14" fill="none" stroke="#B07000" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M-48 32 Q-41 18 -27 25" fill="none" stroke="#B07000" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M56 19 Q47 7 34 14" fill="none" stroke="#B07000" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M58 32 Q51 18 37 25" fill="none" stroke="#B07000" stroke-width="3.5" stroke-linecap="round"/>
+  <text x="5" y="25" text-anchor="middle" font-size="10" fill="#FF4500">★</text>
+</g>
+<path d="M490 213 Q516 200 522 184 Q511 172 488 177 Z" fill="#6B3410" stroke="#FFD700" stroke-width="1.5"/>
+<rect x="272" y="20" width="12" height="196" fill="#5C2800" rx="2"/>
+<rect x="150" y="80" width="9" height="136" fill="#5C2800" rx="2"/>
+<ellipse cx="278" cy="24" rx="17" ry="7" fill="#6B3410" stroke="#5C2800" stroke-width="1"/>
+<rect x="200" y="50" width="152" height="8" fill="#6B3410" rx="2"/>
+<rect x="144" y="100" width="84" height="7" fill="#6B3410" rx="2"/>
+<path d="M282 56 Q358 85 352 210 L282 210 Z" fill="rgba(255,248,220,.93)"/>
+<path d="M282 56 Q358 85 352 210 L282 210 Z" fill="url(#sg)"/>
+<g transform="translate(300,110)" opacity=".62">
+  <circle cx="20" cy="18" r="17" fill="none" stroke="#555" stroke-width="2"/>
+  <ellipse cx="13" cy="12" rx="4" ry="5" fill="#555"/>
+  <ellipse cx="27" cy="12" rx="4" ry="5" fill="#555"/>
+  <path d="M11 22 Q20 29 29 22" fill="none" stroke="#555" stroke-width="2"/>
+  <line x1="2" y1="37" x2="38" y2="37" stroke="#555" stroke-width="2"/>
+  <line x1="8" y1="29" x2="16" y2="45" stroke="#555" stroke-width="2"/>
+  <line x1="32" y1="29" x2="24" y2="45" stroke="#555" stroke-width="2"/>
+</g>
+<path d="M272 58 Q198 87 202 210 L272 210 Z" fill="rgba(255,248,220,.88)"/>
+<path d="M154 106 Q208 127 206 214 L154 214 Z" fill="rgba(255,248,220,.82)"/>
+<line x1="277" y1="56" x2="62" y2="172" stroke="#8B6914" stroke-width="1.5" opacity=".55"/>
+<line x1="277" y1="56" x2="493" y2="182" stroke="#8B6914" stroke-width="1.5" opacity=".55"/>
+<line x1="154" y1="107" x2="52" y2="168" stroke="#8B6914" stroke-width="1.2" opacity=".5"/>
+<line x1="277" y1="56" x2="154" y2="107" stroke="#8B6914" stroke-width="1.2" opacity=".5"/>
+<path d="M277 20 L318 11 L312 27 Z" fill="#CC1C1C"/>
+<circle cx="298" cy="17" r="4.5" fill="white" opacity=".9"/>
+</svg>`;
+
+        // ============================================================
+        // STRAW HAT CREW DATA — 10 members, each with unique SVG art
+        // ============================================================
+        const CREW = [
+            {
+                id: 'luffy', name: 'Monkey D. Luffy', role: 'Captain', left: '8%',
+                svg: `<svg width="108" height="200" viewBox="0 0 108 200">
+<ellipse cx="54" cy="198" rx="27" ry="6" fill="rgba(0,0,0,.45)"/>
+<rect x="36" y="150" width="13" height="48" rx="6" fill="#4a3000"/><rect x="59" y="150" width="13" height="48" rx="6" fill="#4a3000"/>
+<ellipse cx="42" cy="198" rx="13" ry="5" fill="#2a1800" transform="rotate(-5,42,198)"/><ellipse cx="67" cy="198" rx="13" ry="5" fill="#2a1800" transform="rotate(5,67,198)"/>
+<path d="M30 116 Q33 155 36 160 L75 160 Q78 155 81 116 Z" fill="#CC1C1C"/>
+<line x1="54" y1="116" x2="54" y2="157" stroke="#8B0000" stroke-width="2"/>
+<rect x="30" y="113" width="50" height="7" rx="3" fill="#2a1800"/>
+<rect x="48" y="114" width="13" height="5" rx="1" fill="#FFD700"/>
+<rect x="26" y="66" width="56" height="50" rx="8" fill="#CC1C1C"/>
+<path d="M54 66 L54 116" stroke="#f5c0a0" stroke-width="16" stroke-linecap="round"/>
+<path d="M26 78 Q-2 88 -12 113" fill="none" stroke="#f5c0a0" stroke-width="13" stroke-linecap="round"/><circle cx="-13" cy="115" r="8" fill="#f5c0a0"/>
+<path d="M82 78 Q106 90 110 110" fill="none" stroke="#f5c0a0" stroke-width="13" stroke-linecap="round"/><circle cx="111" cy="112" r="8" fill="#f5c0a0"/>
+<rect x="44" y="55" width="18" height="15" rx="4" fill="#f5c0a0"/>
+<circle cx="54" cy="38" r="32" fill="#f5c0a0"/>
+<circle cx="43" cy="34" r="8.5" fill="white"/><circle cx="65" cy="34" r="8.5" fill="white"/>
+<circle cx="43" cy="35" r="5" fill="#1a1000"/><circle cx="65" cy="35" r="5" fill="#1a1000"/>
+<circle cx="45" cy="33" r="2" fill="white"/><circle cx="67" cy="33" r="2" fill="white"/>
+<path d="M52 47 L56 55" stroke="#CC1C1C" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M34 52 Q54 68 74 52" fill="none" stroke="#5a2a00" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M38 54 Q54 64 70 54" fill="white"/>
+<ellipse cx="22" cy="38" rx="5" ry="7" fill="#f5c0a0"/><ellipse cx="86" cy="38" rx="5" ry="7" fill="#f5c0a0"/>
+<ellipse cx="54" cy="11" rx="49" ry="10.5" fill="#E8BC30" stroke="#C09010" stroke-width="2"/>
+<ellipse cx="54" cy="11" rx="30" ry="7.5" fill="#D4A028" stroke="#C09010" stroke-width="1.5"/>
+<ellipse cx="54" cy="5" rx="23" ry="9" fill="#ECC838"/>
+<rect x="32" y="7" width="46" height="6" fill="#CC1C1C" opacity=".9"/>
+<path d="M42 4 Q54 0 66 4" fill="none" stroke="#C09010" stroke-width="1" opacity=".5"/>
+</svg>`
+            },
+            {
+                id: 'zoro', name: 'Roronoa Zoro', role: 'Swordsman', left: '18%',
+                svg: `<svg width="102" height="200" viewBox="0 0 102 200">
+<ellipse cx="51" cy="198" rx="25" ry="6" fill="rgba(0,0,0,.45)"/>
+<rect x="29" y="145" width="13" height="52" rx="6" fill="#111"/><rect x="56" y="145" width="13" height="52" rx="6" fill="#111"/>
+<ellipse cx="35" cy="197" rx="12" ry="5" fill="#0a0a0a"/><ellipse cx="63" cy="197" rx="12" ry="5" fill="#0a0a0a"/>
+<path d="M24 110 Q26 150 29 155 L71 155 Q74 150 76 110 Z" fill="#E8E8E8"/>
+<rect x="22" y="106" width="54" height="9" rx="3" fill="#1e7a1e"/>
+<rect x="20" y="57" width="58" height="54" rx="8" fill="#111"/>
+<path d="M51 57 L51 111" stroke="#d4a070" stroke-width="17" stroke-linecap="round"/>
+<rect x="74" y="80" width="4" height="68" rx="2" fill="#999" transform="rotate(-5,74,80)"/>
+<rect x="81" y="77" width="4" height="68" rx="2" fill="#BBB" transform="rotate(-2,81,77)"/>
+<rect x="88" y="82" width="4" height="65" rx="2" fill="#888" transform="rotate(-8,88,82)"/>
+<ellipse cx="76" cy="88" rx="7" ry="3" fill="#FFD700" transform="rotate(-5,76,88)"/>
+<ellipse cx="83" cy="85" rx="7" ry="3" fill="#FFD700" transform="rotate(-2,83,85)"/>
+<ellipse cx="90" cy="90" rx="7" ry="3" fill="#FFD700" transform="rotate(-8,90,90)"/>
+<rect x="-1" y="93" width="4" height="74" rx="2" fill="#CCC" transform="rotate(10,-1,93)"/>
+<ellipse cx="2" cy="100" rx="8" ry="3" fill="#FFD700" transform="rotate(10,2,100)"/>
+<path d="M20 68 Q4 82 1 105" fill="none" stroke="#c8906a" stroke-width="14" stroke-linecap="round"/>
+<path d="M78 68 Q90 80 92 103" fill="none" stroke="#c8906a" stroke-width="14" stroke-linecap="round"/>
+<circle cx="93" cy="105" r="8" fill="#c8906a"/>
+<rect x="42" y="47" width="18" height="13" rx="3" fill="#c8906a"/>
+<circle cx="51" cy="32" r="30" fill="#c8906a"/>
+<path d="M23 25 Q29 2 51 5 Q73 2 79 25" fill="#1e7a1e" stroke="#155a15" stroke-width="1"/>
+<path d="M23 25 Q19 10 32 7" fill="#1e7a1e"/>
+<path d="M79 25 Q83 10 70 7" fill="#1e7a1e"/>
+<path d="M32 27 Q40 23 45 27" fill="none" stroke="#2a1a00" stroke-width="2.5"/>
+<path d="M57 27 Q62 23 70 27" fill="none" stroke="#2a1a00" stroke-width="2.5"/>
+<ellipse cx="39" cy="30" rx="4.5" ry="4.5" fill="#0a0a0a"/>
+<ellipse cx="63" cy="30" rx="4.5" ry="4.5" fill="#0a0a0a"/>
+<circle cx="40" cy="29" r="1.5" fill="white"/><circle cx="64" cy="29" r="1.5" fill="white"/>
+<path d="M31 19 L38 41" stroke="#8B0000" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="38" y1="45" x2="64" y2="45" stroke="#2a1a00" stroke-width="2.2" stroke-linecap="round"/>
+<ellipse cx="21" cy="32" rx="5" ry="6" fill="#c8906a"/><ellipse cx="81" cy="32" rx="5" ry="6" fill="#c8906a"/>
+<path d="M23 23 Q51 15 79 23" fill="none" stroke="#0a0a0a" stroke-width="5" stroke-linecap="round"/>
+</svg>`
+            },
+            {
+                id: 'nami', name: 'Nami', role: 'Navigator', left: '28%',
+                svg: `<svg width="88" height="195" viewBox="0 0 88 195">
+<ellipse cx="44" cy="193" rx="22" ry="5.5" fill="rgba(0,0,0,.4)"/>
+<rect x="27" y="138" width="12" height="52" rx="5" fill="#f5c0a0"/><rect x="47" y="138" width="12" height="52" rx="5" fill="#f5c0a0"/>
+<ellipse cx="33" cy="191" rx="12" ry="5" fill="#8B4513" transform="rotate(-5,33,191)"/><ellipse cx="53" cy="191" rx="12" ry="5" fill="#8B4513" transform="rotate(5,53,191)"/>
+<path d="M21 108 Q23 145 27 149 L59 149 Q63 145 65 108 Z" fill="#3a68c4"/>
+<rect x="21" y="105" width="44" height="6" rx="2" fill="#8B4513"/>
+<rect x="19" y="60" width="50" height="50" rx="8" fill="#E88010"/>
+<path d="M22 84 Q44 90 65 84 L65 108 Q44 113 22 108 Z" fill="#f5c0a0"/>
+<path d="M19 68 Q4 83 1 103" fill="none" stroke="#f5c0a0" stroke-width="12" stroke-linecap="round"/>
+<circle cx="0" cy="105" r="7" fill="#f5c0a0"/>
+<rect x="-9" y="94" width="6" height="80" rx="3" fill="#8B4513" transform="rotate(-12,-9,94)"/>
+<circle cx="-19" cy="165" r="9" fill="#87CEEB" opacity=".85"/>
+<path d="M69 68 Q81 81 83 99" fill="none" stroke="#f5c0a0" stroke-width="12" stroke-linecap="round"/>
+<circle cx="84" cy="101" r="7" fill="#f5c0a0"/>
+<rect x="36" y="49" width="14" height="14" rx="3" fill="#f5c0a0"/>
+<circle cx="44" cy="35" r="28" fill="#f5c0a0"/>
+<path d="M17 29 Q22 5 44 8 Q66 5 71 29" fill="#E07018" stroke="#C05810" stroke-width="1"/>
+<path d="M17 29 Q14 13 24 8" fill="#E07018"/><path d="M71 29 Q74 13 64 8" fill="#E07018"/>
+<path d="M17 29 Q11 54 15 80" fill="none" stroke="#E07018" stroke-width="11" stroke-linecap="round"/>
+<path d="M71 29 Q75 54 71 80" fill="none" stroke="#E07018" stroke-width="11" stroke-linecap="round"/>
+<path d="M29 29 Q36 25 41 29" fill="none" stroke="#2a1a00" stroke-width="2"/>
+<path d="M47 29 Q52 25 59 29" fill="none" stroke="#2a1a00" stroke-width="2"/>
+<ellipse cx="35" cy="32" rx="4.5" ry="4.5" fill="#8B3A0A"/>
+<ellipse cx="53" cy="32" rx="4.5" ry="4.5" fill="#8B3A0A"/>
+<circle cx="36.5" cy="30.5" r="1.5" fill="white"/><circle cx="54.5" cy="30.5" r="1.5" fill="white"/>
+<path d="M32 45 Q44 53 56 45" fill="none" stroke="#8B3A0A" stroke-width="1.8" stroke-linecap="round"/>
+<ellipse cx="16" cy="35" rx="4.5" ry="5.5" fill="#f5c0a0"/><ellipse cx="72" cy="35" rx="4.5" ry="5.5" fill="#f5c0a0"/>
+<circle cx="11" cy="81" r="7" fill="#FFA500" opacity=".75"/>
+<path d="M11 74 L11 70" stroke="#228B22" stroke-width="2.5"/>
+</svg>`
+            },
+            {
+                id: 'usopp', name: 'Usopp', role: 'Sniper', left: '38%',
+                svg: `<svg width="92" height="195" viewBox="0 0 92 195">
+<ellipse cx="46" cy="193" rx="23" ry="5.5" fill="rgba(0,0,0,.4)"/>
+<rect x="29" y="142" width="13" height="50" rx="5" fill="#5a3800"/><rect x="50" y="142" width="13" height="50" rx="5" fill="#5a3800"/>
+<ellipse cx="35" cy="192" rx="12" ry="5" fill="#2a1800"/><ellipse cx="57" cy="192" rx="12" ry="5" fill="#2a1800"/>
+<path d="M21 107 Q23 148 29 152 L63 152 Q69 148 71 107 Z" fill="#8B6410"/>
+<path d="M35 69 Q29 89 32 107" fill="none" stroke="#222" stroke-width="4.5"/>
+<path d="M57 69 Q63 89 60 107" fill="none" stroke="#222" stroke-width="4.5"/>
+<line x1="35" y1="87" x2="57" y2="87" stroke="#222" stroke-width="3"/>
+<rect x="19" y="55" width="54" height="57" rx="8" fill="#D0C850"/>
+<path d="M27 55 Q46 48 65 55 L63 81 Q46 85 29 81 Z" fill="#4a7a10"/>
+<path d="M19 69 Q4 81 1 103" fill="none" stroke="#c09060" stroke-width="13" stroke-linecap="round"/>
+<path d="M-2 99 Q-9 88 -5 76" fill="none" stroke="#6B3A10" stroke-width="3.5"/>
+<path d="M-2 99 Q5 88 3 76" fill="none" stroke="#6B3A10" stroke-width="3.5"/>
+<path d="M-5 76 Q-1 72 3 76" fill="none" stroke="#888" stroke-width="2.5"/>
+<path d="M77 69 Q87 81 89 103" fill="none" stroke="#c09060" stroke-width="13" stroke-linecap="round"/>
+<circle cx="90" cy="105" r="7" fill="#c09060"/>
+<rect x="37" y="46" width="17" height="13" rx="3" fill="#c09060"/>
+<circle cx="46" cy="31" r="29" fill="#c09060"/>
+<path d="M18 25 Q22 1 46 4 Q70 1 74 25" fill="#1a0a00"/>
+<circle cx="19" cy="19" r="9" fill="#1a0a00"/><circle cx="29" cy="10" r="9" fill="#1a0a00"/>
+<circle cx="46" cy="6" r="10" fill="#1a0a00"/><circle cx="63" cy="10" r="9" fill="#1a0a00"/>
+<circle cx="73" cy="19" r="9" fill="#1a0a00"/>
+<rect x="21" y="16" width="50" height="13" rx="6" fill="#222" opacity=".8"/>
+<rect x="23" y="17" width="22" height="10" rx="5" fill="#87CEEB" opacity=".85"/>
+<rect x="47" y="17" width="22" height="10" rx="5" fill="#87CEEB" opacity=".85"/>
+<ellipse cx="35" cy="35" rx="5.5" ry="5.5" fill="white"/><ellipse cx="57" cy="35" rx="5.5" ry="5.5" fill="white"/>
+<ellipse cx="35" cy="36" rx="3.5" ry="3.5" fill="#1a0a00"/><ellipse cx="57" cy="36" rx="3.5" ry="3.5" fill="#1a0a00"/>
+<circle cx="36.5" cy="34.5" r="1.2" fill="white"/><circle cx="58.5" cy="34.5" r="1.2" fill="white"/>
+<path d="M46 39 Q55 51 62 63" fill="#c09060" stroke="#a07040" stroke-width="2"/>
+<ellipse cx="62" cy="65" rx="10" ry="7" fill="#c09060" stroke="#a07040" stroke-width="1.5"/>
+<path d="M34 49 Q46 57 58 49" fill="none" stroke="#8B4513" stroke-width="2" stroke-linecap="round"/>
+<ellipse cx="17" cy="33" rx="5" ry="6" fill="#c09060"/><ellipse cx="75" cy="33" rx="5" ry="6" fill="#c09060"/>
+</svg>`
+            },
+            {
+                id: 'sanji', name: 'Vinsmoke Sanji', role: 'Cook', left: '47%',
+                svg: `<svg width="98" height="200" viewBox="0 0 98 200">
+<ellipse cx="49" cy="198" rx="24" ry="6" fill="rgba(0,0,0,.45)"/>
+<rect x="27" y="143" width="13" height="54" rx="6" fill="#111"/><rect x="56" y="143" width="13" height="54" rx="6" fill="#111"/>
+<ellipse cx="33" cy="197" rx="12" ry="5" fill="#0a0a0a"/><ellipse cx="62" cy="197" rx="12" ry="5" fill="#0a0a0a"/>
+<path d="M21 110 Q23 150 27 154 L69 154 Q73 150 75 110 Z" fill="#111"/>
+<rect x="21" y="107" width="54" height="7" rx="2" fill="#1a1a1a"/>
+<rect x="43" y="108" width="10" height="5" rx="1" fill="#666"/>
+<rect x="19" y="55" width="58" height="58" rx="8" fill="#111"/>
+<path d="M49 55 L49 113" stroke="white" stroke-width="15" stroke-linecap="round"/>
+<path d="M49 55 L31 77" fill="none" stroke="#111" stroke-width="9" stroke-linecap="round"/>
+<path d="M49 55 L67 77" fill="none" stroke="#111" stroke-width="9" stroke-linecap="round"/>
+<path d="M49 65 L44 100 L49 111 L54 100 Z" fill="#CC1C1C"/>
+<rect x="24" y="68" width="10" height="7" rx="1" fill="white" transform="rotate(-5,24,68)"/>
+<path d="M19 67 Q4 81 1 105" fill="none" stroke="#eec090" stroke-width="13" stroke-linecap="round"/>
+<circle cx="0" cy="107" r="7" fill="#eec090"/>
+<path d="M77 67 Q89 79 90 101" fill="none" stroke="#eec090" stroke-width="13" stroke-linecap="round"/>
+<circle cx="91" cy="103" r="7" fill="#eec090"/>
+<rect x="40" y="45" width="16" height="13" rx="3" fill="#eec090"/>
+<circle cx="49" cy="31" r="29" fill="#eec090"/>
+<path d="M21 25 Q27 2 49 5 Q71 2 77 25" fill="#F0BE00" stroke="#C89800" stroke-width="1"/>
+<path d="M21 25 Q17 11 29 7" fill="#F0BE00"/>
+<path d="M77 25 Q81 11 69 7" fill="#F0BE00"/>
+<path d="M19 25 Q27 16 37 23" fill="#F0BE00" stroke="#888" stroke-width="1"/>
+<ellipse cx="19" cy="22" rx="8" ry="6" fill="#F0BE00"/>
+<path d="M54 26 Q61 22 69 26" fill="none" stroke="#2a1a00" stroke-width="2"/>
+<ellipse cx="62" cy="30" rx="5" ry="5" fill="#1a3050"/>
+<circle cx="64" cy="28" r="1.8" fill="white"/>
+<rect x="35" y="45" width="24" height="3" rx="1.5" fill="white"/>
+<rect x="35" y="45" width="6" height="3" rx="1.5" fill="#FF6600" opacity=".75"/>
+<path d="M35 45 Q31 35 29 27" fill="none" stroke="rgba(200,200,200,.35)" stroke-width="2.5"/>
+<path d="M38 43 L52 43" stroke="#8B5020" stroke-width="2.5" stroke-linecap="round"/>
+<ellipse cx="20" cy="31" rx="5" ry="6" fill="#eec090"/><ellipse cx="78" cy="31" rx="5" ry="6" fill="#eec090"/>
+</svg>`
+            },
+            {
+                id: 'chopper', name: 'Tony Tony Chopper', role: 'Doctor', left: '56%',
+                svg: `<svg width="82" height="185" viewBox="0 0 82 185">
+<ellipse cx="41" cy="183" rx="24" ry="5.5" fill="rgba(0,0,0,.4)"/>
+<!-- Legs (reindeer-ish, short) -->
+<rect x="26" y="142" width="11" height="40" rx="5" fill="#8B4513"/>
+<rect x="44" y="142" width="11" height="40" rx="5" fill="#8B4513"/>
+<ellipse cx="31" cy="182" rx="14" ry="5" fill="#5C2E00"/>
+<ellipse cx="50" cy="182" rx="14" ry="5" fill="#5C2E00"/>
+<!-- Pink body (cute reindeer human form) -->
+<rect x="18" y="75" width="46" height="70" rx="14" fill="#E05080"/>
+<!-- White belly patch -->
+<ellipse cx="41" cy="108" rx="14" ry="20" fill="#f5f0e8" opacity=".85"/>
+<!-- Doctor bag -->
+<rect x="60" y="105" width="20" height="16" rx="4" fill="#CC1C1C" stroke="#8B0000" stroke-width="1.5"/>
+<rect x="69" y="102" width="4" height="6" rx="2" fill="#CC1C1C" stroke="#8B0000" stroke-width="1"/>
+<line x1="64" y1="113" x2="76" y2="113" stroke="white" stroke-width="2"/>
+<line x1="70" y1="107" x2="70" y2="119" stroke="white" stroke-width="2"/>
+<!-- Arms -->
+<path d="M18 88 Q4 100 2 116" fill="none" stroke="#E05080" stroke-width="14" stroke-linecap="round"/>
+<circle cx="1" cy="118" r="8" fill="#E05080"/>
+<path d="M64 88 Q72 98 74 112" fill="none" stroke="#E05080" stroke-width="12" stroke-linecap="round"/>
+<!-- Neck -->
+<rect x="34" y="64" width="14" height="14" rx="4" fill="#c8906a"/>
+<!-- Head — big round cute -->
+<circle cx="41" cy="45" r="34" fill="#c8906a"/>
+<!-- Brown reindeer patches on head -->
+<ellipse cx="41" cy="60" rx="22" ry="14" fill="#8B5C2A" opacity=".55"/>
+<!-- BIG round eyes (Chopper) -->
+<circle cx="30" cy="40" r="10" fill="white" stroke="#333" stroke-width="1.5"/>
+<circle cx="52" cy="40" r="10" fill="white" stroke="#333" stroke-width="1.5"/>
+<circle cx="30" cy="41" r="6.5" fill="#2a2aCC"/>
+<circle cx="52" cy="41" r="6.5" fill="#2a2aCC"/>
+<circle cx="32" cy="39" r="2.5" fill="white"/>
+<circle cx="54" cy="39" r="2.5" fill="white"/>
+<!-- Little nose -->
+<ellipse cx="41" cy="50" rx="4" ry="3" fill="#CC3060" stroke="#993040" stroke-width="1"/>
+<!-- Smile -->
+<path d="M32 56 Q41 64 50 56" fill="none" stroke="#8B4030" stroke-width="2" stroke-linecap="round"/>
+<!-- PINK HAT (Chopper's doctor hat) -->
+<rect x="14" y="10" width="54" height="20" rx="5" fill="#f5f0e8" stroke="#ddd" stroke-width="1.5"/>
+<line x1="14" y1="22" x2="68" y2="22" stroke="#CC1C1C" stroke-width="3"/>
+<line x1="41" y1="10" x2="41" y2="30" stroke="#CC1C1C" stroke-width="3"/>
+<!-- Ears / antlers -->
+<path d="M12 28 Q5 10 14 4 Q16 12 20 14" fill="#8B4513" stroke="#5C2E00" stroke-width="1"/>
+<path d="M8 10 Q12 2 18 6" fill="#8B4513"/>
+<path d="M70 28 Q77 10 68 4 Q66 12 62 14" fill="#8B4513" stroke="#5C2E00" stroke-width="1"/>
+<path d="M74 10 Q70 2 64 6" fill="#8B4513"/>
+<!-- Ear hoops -->
+<ellipse cx="8" cy="44" rx="4" ry="5" fill="#c8906a"/><ellipse cx="74" cy="44" rx="4" ry="5" fill="#c8906a"/>
+</svg>`
+            },
+            {
+                id: 'robin', name: 'Nico Robin', role: 'Archaeologist', left: '63%',
+                svg: `<svg width="90" height="200" viewBox="0 0 90 200">
+<ellipse cx="45" cy="198" rx="23" ry="6" fill="rgba(0,0,0,.45)"/>
+<rect x="28" y="148" width="13" height="50" rx="5" fill="#1a1a1a"/><rect x="49" y="148" width="13" height="50" rx="5" fill="#1a1a1a"/>
+<ellipse cx="34" cy="198" rx="11" ry="5" fill="#0a0a0a"/><ellipse cx="55" cy="198" rx="11" ry="5" fill="#0a0a0a"/>
+<!-- Legs/skirt -->
+<path d="M20 112 Q22 150 28 154 L62 154 Q68 150 70 112 Z" fill="#1a1a1a"/>
+<!-- Belt/waist detail -->
+<rect x="20" y="109" width="50" height="7" rx="3" fill="#2a2a3a"/>
+<!-- Purple/dark blouse -->
+<rect x="18" y="58" width="54" height="56" rx="8" fill="#2a1a4a"/>
+<!-- Neckline V -->
+<path d="M45 58 L35 80" fill="none" stroke="#1a0a3a" stroke-width="9" stroke-linecap="round"/>
+<path d="M45 58 L55 80" fill="none" stroke="#1a0a3a" stroke-width="9" stroke-linecap="round"/>
+<!-- Book she's holding -->
+<rect x="-8" y="92" width="18" height="24" rx="3" fill="#8B4513" stroke="#6B3000" stroke-width="1.5"/>
+<line x1="-7" y1="92" x2="-7" y2="116" stroke="#6B3000" stroke-width="2"/>
+<line x1="-8" y1="100" x2="10" y2="100" stroke="#6B3000" stroke-width="1"/>
+<line x1="-8" y1="106" x2="10" y2="106" stroke="#6B3000" stroke-width="1"/>
+<!-- Arms -->
+<path d="M18 70 Q3 83 -1 104" fill="none" stroke="#c0906a" stroke-width="12" stroke-linecap="round"/>
+<circle cx="-2" cy="106" r="7" fill="#c0906a"/>
+<path d="M72 70 Q83 82 84 100" fill="none" stroke="#c0906a" stroke-width="12" stroke-linecap="round"/>
+<circle cx="85" cy="102" r="7" fill="#c0906a"/>
+<!-- Neck -->
+<rect x="37" y="48" width="16" height="13" rx="3" fill="#c0906a"/>
+<!-- Head -->
+<circle cx="45" cy="33" r="28" fill="#c0906a"/>
+<!-- Dark blue-black hair (Robin) -->
+<path d="M18 28 Q23 3 45 6 Q67 3 72 28" fill="#1a1a3a" stroke="#0a0a2a" stroke-width="1"/>
+<path d="M18 28 Q15 12 26 8" fill="#1a1a3a"/>
+<path d="M72 28 Q75 12 64 8" fill="#1a1a3a"/>
+<!-- Long flowing hair sides -->
+<path d="M18 28 Q12 52 15 80" fill="none" stroke="#1a1a3a" stroke-width="12" stroke-linecap="round"/>
+<path d="M72 28 Q76 52 73 80" fill="none" stroke="#1a1a3a" stroke-width="12" stroke-linecap="round"/>
+<!-- Eyes - mature, calm -->
+<path d="M31 29 Q37 25 42 29" fill="none" stroke="#2a1a00" stroke-width="2"/>
+<path d="M48 29 Q53 25 59 29" fill="none" stroke="#2a1a00" stroke-width="2"/>
+<ellipse cx="37" cy="32" rx="4.5" ry="4.5" fill="#2a1a50"/>
+<ellipse cx="53" cy="32" rx="4.5" ry="4.5" fill="#2a1a50"/>
+<circle cx="38.5" cy="31" r="1.5" fill="white"/><circle cx="54.5" cy="31" r="1.5" fill="white"/>
+<!-- Small calm smile -->
+<path d="M35 44 Q45 50 55 44" fill="none" stroke="#8B4030" stroke-width="1.8" stroke-linecap="round"/>
+<!-- Earrings -->
+<circle cx="17" cy="36" r="3" fill="#FFD700"/>
+<circle cx="73" cy="36" r="3" fill="#FFD700"/>
+<ellipse cx="17" cy="33" rx="4" ry="5" fill="#c0906a"/><ellipse cx="73" cy="33" rx="4" ry="5" fill="#c0906a"/>
+<!-- Sunglasses on head -->
+<rect x="26" y="17" width="38" height="10" rx="4" fill="#111" opacity=".7"/>
+</svg>`
+            },
+            {
+                id: 'franky', name: 'Franky', role: 'Shipwright', left: '70.5%',
+                svg: `<svg width="105" height="210" viewBox="0 0 105 210">
+<ellipse cx="52" cy="208" rx="30" ry="7" fill="rgba(0,0,0,.5)"/>
+<!-- Heavy mechanical legs -->
+<rect x="27" y="155" width="18" height="52" rx="5" fill="#3a3a5a"/>
+<rect x="57" y="155" width="18" height="52" rx="5" fill="#3a3a5a"/>
+<ellipse cx="36" cy="207" rx="15" ry="6" fill="#222"/>
+<ellipse cx="66" cy="207" rx="15" ry="6" fill="#222"/>
+<!-- Metal joint lines -->
+<line x1="27" y1="168" x2="45" y2="168" stroke="#666" stroke-width="2"/>
+<line x1="57" y1="168" x2="75" y2="168" stroke="#666" stroke-width="2"/>
+<!-- Shorts (swim trunks, Hawaiian style) -->
+<path d="M20 118 Q22 158 27 162 L75 162 Q80 158 82 118 Z" fill="#2255AA"/>
+<!-- Stars on shorts -->
+<text x="30" y="142" font-size="10" fill="white" opacity=".6">★</text>
+<text x="60" y="138" font-size="8" fill="white" opacity=".5">★</text>
+<!-- BIG muscular torso (Franky is massive) -->
+<rect x="12" y="55" width="78" height="68" rx="12" fill="#c8906a"/>
+<!-- Chest armor (cyborg plating) -->
+<rect x="18" y="60" width="66" height="50" rx="8" fill="#3a3a5a" opacity=".6"/>
+<!-- Chest star light (Franky's star)-->
+<circle cx="52" cy="85" r="14" fill="#FFD700" opacity=".85"/>
+<path d="M52 71 L55 80 L65 80 L57 87 L60 97 L52 91 L44 97 L47 87 L39 80 L49 80 Z" fill="#FFA500"/>
+<!-- Cyborg shoulder plates -->
+<rect x="4" y="56" width="22" height="18" rx="5" fill="#3a3a5a"/>
+<rect x="76" y="56" width="22" height="18" rx="5" fill="#3a3a5a"/>
+<!-- Arms (massive) -->
+<path d="M12 66 Q-8 80 -12 108" fill="none" stroke="#c8906a" stroke-width="20" stroke-linecap="round"/>
+<circle cx="-13" cy="110" r="12" fill="#3a3a5a"/>
+<!-- Mechanical fist left -->
+<rect x="-20" y="104" width="18" height="14" rx="4" fill="#555"/>
+<line x1="-18" y1="107" x2="-4" y2="107" stroke="#888" stroke-width="1.5"/>
+<line x1="-18" y1="112" x2="-4" y2="112" stroke="#888" stroke-width="1.5"/>
+<path d="M90 66 Q110 80 114 108" fill="none" stroke="#c8906a" stroke-width="20" stroke-linecap="round"/>
+<circle cx="115" cy="110" r="12" fill="#3a3a5a"/>
+<rect x="104" y="104" width="18" height="14" rx="4" fill="#555"/>
+<!-- Belt -->
+<rect x="20" y="115" width="62" height="8" rx="3" fill="#222"/>
+<rect x="47" y="116" width="12" height="6" rx="2" fill="#FFD700"/>
+<!-- Neck -->
+<rect x="42" y="45" width="20" height="13" rx="4" fill="#c8906a"/>
+<!-- Head (big square jaw) -->
+<rect x="18" y="15" width="68" height="55" rx="12" fill="#c8906a"/>
+<!-- BLUE POMPADOUR HAIR (Franky's iconic look) -->
+<path d="M18 25 Q22 0 52 4 Q82 0 86 25" fill="#1a5ab4" stroke="#1040a0" stroke-width="1.5"/>
+<path d="M18 25 Q15 10 22 5" fill="#1a5ab4"/>
+<path d="M86 25 Q89 10 82 5" fill="#1a5ab4"/>
+<!-- Pompadour height -->
+<ellipse cx="52" cy="8" rx="28" ry="14" fill="#1a5ab4" stroke="#1040a0" stroke-width="1"/>
+<!-- Shades (Franky always wears them) -->
+<rect x="24" y="30" width="56" height="14" rx="6" fill="#111"/>
+<rect x="26" y="31" width="24" height="11" rx="5" fill="#0a2040" opacity=".85"/>
+<rect x="52" y="31" width="24" height="11" rx="5" fill="#0a2040" opacity=".85"/>
+<line x1="50" y1="31" x2="52" y2="42" stroke="#333" stroke-width="2"/>
+<!-- Nose big -->
+<ellipse cx="52" cy="50" rx="7" ry="5" fill="#b07848"/>
+<!-- Smile big teeth -->
+<path d="M35 58 Q52 68 69 58" fill="none" stroke="#5a2a00" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M38 60 Q52 66 66 60" fill="white"/>
+<ellipse cx="20" cy="37" rx="5" ry="7" fill="#c8906a"/><ellipse cx="84" cy="37" rx="5" ry="7" fill="#c8906a"/>
+</svg>`
+            },
+            {
+                id: 'brook', name: 'Brook', role: 'Musician', left: '79%',
+                svg: `<svg width="88" height="215" viewBox="0 0 88 215">
+<ellipse cx="44" cy="213" rx="20" ry="5" fill="rgba(0,0,0,.45)"/>
+<!-- Skeleton legs (very thin) -->
+<rect x="34" y="158" width="8" height="55" rx="3" fill="#e8e0d0"/>
+<rect x="46" y="158" width="8" height="55" rx="3" fill="#e8e0d0"/>
+<ellipse cx="38" cy="213" rx="10" ry="4" fill="#c8c0b0"/>
+<ellipse cx="50" cy="213" rx="10" ry="4" fill="#c8c0b0"/>
+<!-- Knee joints -->
+<ellipse cx="38" cy="182" rx="6" ry="5" fill="#d0c8b8"/>
+<ellipse cx="50" cy="182" rx="6" ry="5" fill="#d0c8b8"/>
+<!-- Tuxedo pants black -->
+<path d="M22 112 Q24 155 34 162 L54 162 Q64 155 66 112 Z" fill="#111"/>
+<!-- White shirt/tuxedo front -->
+<rect x="20" y="55" width="48" height="60" rx="8" fill="#111"/>
+<path d="M44 55 L44 115" stroke="white" stroke-width="12" stroke-linecap="round"/>
+<!-- Bow tie -->
+<path d="M36 70 L44 78 L52 70 M36 70 L44 62 L52 70" fill="none" stroke="#CC1C1C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="44" cy="70" rx="4" ry="4" fill="#CC1C1C"/>
+<!-- Cane/sword (Brook's cane sword) -->
+<rect x="-2" y="70" width="5" height="100" rx="2" fill="#888"/>
+<ellipse cx="0" cy="72" rx="8" ry="4" fill="#FFD700"/>
+<circle cx="0" cy="68" r="5" fill="#FFD700"/>
+<!-- Arms skeleton thin -->
+<path d="M20 68 Q5 82 3 105" fill="none" stroke="#e8e0d0" stroke-width="10" stroke-linecap="round"/>
+<circle cx="2" cy="107" r="6" fill="#e8e0d0"/>
+<path d="M68 68 Q80 80 81 102" fill="none" stroke="#e8e0d0" stroke-width="10" stroke-linecap="round"/>
+<circle cx="82" cy="104" r="6" fill="#e8e0d0"/>
+<!-- Belt with skull -->
+<rect x="22" y="109" width="44" height="7" rx="2" fill="#333"/>
+<circle cx="44" cy="113" r="4" fill="#666"/>
+<!-- Neck (skeleton) -->
+<rect x="38" y="48" width="12" height="10" rx="3" fill="#e8e0d0"/>
+<!-- SKULL HEAD -->
+<ellipse cx="44" cy="28" rx="26" ry="28" fill="#e8e0d0" stroke="#c8c0b0" stroke-width="1.5"/>
+<!-- Eye sockets (hollow) -->
+<ellipse cx="34" cy="24" rx="8" ry="9" fill="#111"/>
+<ellipse cx="54" cy="24" rx="8" ry="9" fill="#111"/>
+<!-- Nose hole -->
+<ellipse cx="44" cy="34" rx="4" ry="5" fill="#2a2a2a"/>
+<!-- Grinning teeth -->
+<rect x="28" y="44" width="32" height="8" rx="2" fill="#c8c0b0"/>
+<line x1="34" y1="44" x2="34" y2="52" stroke="#8a8070" stroke-width="2"/>
+<line x1="40" y1="44" x2="40" y2="52" stroke="#8a8070" stroke-width="2"/>
+<line x1="46" y1="44" x2="46" y2="52" stroke="#8a8070" stroke-width="2"/>
+<line x1="52" y1="44" x2="52" y2="52" stroke="#8a8070" stroke-width="2"/>
+<!-- Afro (Brook's big afro) -->
+<circle cx="44" cy="8" r="32" fill="#1a1a1a"/>
+<circle cx="24" cy="15" r="14" fill="#222"/>
+<circle cx="64" cy="15" r="14" fill="#222"/>
+<!-- TOP HAT (Brook's signature) -->
+<ellipse cx="44" cy="-12" rx="35" ry="8" fill="#111" stroke="#333" stroke-width="1.5"/>
+<rect x="24" y="-38" width="40" height="26" fill="#111" stroke="#333" stroke-width="1"/>
+<rect x="22" y="-40" width="44" height="6" rx="2" fill="#111" stroke="#444" stroke-width="1"/>
+</svg>`
+            },
+            {
+                id: 'jinbe', name: 'Jinbe', role: 'Helmsman', left: '87%',
+                svg: `<svg width="115" height="215" viewBox="0 0 115 215">
+<ellipse cx="57" cy="213" rx="32" ry="7.5" fill="rgba(0,0,0,.5)"/>
+<!-- Very thick legs (fish-man) -->
+<rect x="30" y="158" width="20" height="55" rx="7" fill="#1a3a6a"/>
+<rect x="62" y="158" width="20" height="55" rx="7" fill="#1a3a6a"/>
+<ellipse cx="40" cy="213" rx="16" ry="6" fill="#111"/>
+<ellipse cx="72" cy="213" rx="16" ry="6" fill="#111"/>
+<!-- Hakama pants dark blue -->
+<path d="M18 118 Q20 162 30 166 L82 166 Q92 162 94 118 Z" fill="#1a2a5a"/>
+<line x1="57" y1="118" x2="57" y2="163" stroke="#2a3a6a" stroke-width="2"/>
+<!-- White gi/kimono top -->
+<rect x="14" y="55" width="84" height="68" rx="10" fill="#e8e0d0"/>
+<!-- Blue gi pattern -->
+<path d="M57 55 L38 90" fill="none" stroke="#e8e0d0" stroke-width="16" stroke-linecap="round"/>
+<path d="M57 55 L76 90" fill="none" stroke="#e8e0d0" stroke-width="16" stroke-linecap="round"/>
+<path d="M57 55 L38 85" fill="none" stroke="#1a2a5a" stroke-width="9" stroke-linecap="round"/>
+<path d="M57 55 L76 85" fill="none" stroke="#1a2a5a" stroke-width="9" stroke-linecap="round"/>
+<!-- Belt (obi) -->
+<rect x="14" y="110" width="84" height="12" rx="4" fill="#CC1C1C"/>
+<rect x="48" y="111" width="18" height="10" rx="2" fill="#FFD700"/>
+<!-- MASSIVE arms (fish-man strength) -->
+<path d="M14 66 Q-10 84 -15 115" fill="none" stroke="#2a5a9a" stroke-width="22" stroke-linecap="round"/>
+<circle cx="-16" cy="117" r="14" fill="#2a5a9a"/>
+<path d="M98 66 Q122 84 127 115" fill="none" stroke="#2a5a9a" stroke-width="22" stroke-linecap="round"/>
+<circle cx="128" cy="117" r="14" fill="#2a5a9a"/>
+<!-- Knuckle lines -->
+<line x1="-24" y1="112" x2="-8" y2="112" stroke="#1a4a8a" stroke-width="2"/>
+<line x1="120" y1="112" x2="136" y2="112" stroke="#1a4a8a" stroke-width="2"/>
+<!-- Neck -->
+<rect x="46" y="46" width="22" height="13" rx="5" fill="#2a5a9a"/>
+<!-- Fish-man HEAD (blue skin, wide) -->
+<ellipse cx="57" cy="28" rx="36" ry="32" fill="#2a5a9a"/>
+<!-- Whale shark pattern on head -->
+<circle cx="35" cy="20" r="5" fill="#1a4a8a" opacity=".6"/>
+<circle cx="50" cy="12" r="4" fill="#1a4a8a" opacity=".5"/>
+<circle cx="65" cy="15" r="5" fill="#1a4a8a" opacity=".6"/>
+<circle cx="78" cy="25" r="4" fill="#1a4a8a" opacity=".5"/>
+<circle cx="40" cy="38" r="4" fill="#1a4a8a" opacity=".4"/>
+<!-- Eyes (calm, wise) -->
+<ellipse cx="43" cy="26" rx="9" ry="8" fill="white"/>
+<ellipse cx="71" cy="26" rx="9" ry="8" fill="white"/>
+<ellipse cx="43" cy="27" rx="6" ry="6" fill="#1a2a5a"/>
+<ellipse cx="71" cy="27" rx="6" ry="6" fill="#1a2a5a"/>
+<circle cx="45" cy="25" r="2.5" fill="white"/>
+<circle cx="73" cy="25" r="2.5" fill="white"/>
+<!-- Nose (flat, fish-man) -->
+<ellipse cx="57" cy="36" rx="6" ry="4" fill="#1a4a8a"/>
+<!-- Calm smile (wide) -->
+<path d="M38 44 Q57 56 76 44" fill="none" stroke="#1a3a6a" stroke-width="3" stroke-linecap="round"/>
+<!-- Pectoral fins on sides of head / ears -->
+<ellipse cx="21" cy="30" rx="7" ry="9" fill="#2a5a9a" stroke="#1a4a8a" stroke-width="1"/>
+<ellipse cx="93" cy="30" rx="7" ry="9" fill="#2a5a9a" stroke="#1a4a8a" stroke-width="1"/>
+</svg>`
+            }
+        ];
+
+        // Build crew members
+        const crewParade = document.getElementById('crew-parade');
+        CREW.forEach((c, i) => {
+            const div = document.createElement('div');
+            div.className = 'crew-member';
+            div.id = 'cm-' + c.id;
+            div.style.left = c.left;
+            div.innerHTML = `
+    <div class="cname">${c.name}</div>
+    ${c.svg}
+    <div class="crole">${c.role}</div>
+  `;
+            crewParade.appendChild(div);
+        });
+
+        // ============================================================
+        // SHIP SAIL-IN
+        // ============================================================
+        const shipSvg = document.getElementById('ship-svg');
+        let shipPos = -950;
+        setTimeout(() => {
+            function sailAnim() {
+                shipPos += (-30 - shipPos) * 0.032;
+                shipWrap.style.left = Math.round(shipPos) + 'px';
+                if (shipPos > -32) shipWrap.style.left = '-30px';
+                else requestAnimationFrame(sailAnim);
+            }
+            requestAnimationFrame(sailAnim);
+        }, 600);
+
+        // Crew reveal stagger
+        const crewEls = document.querySelectorAll('.crew-member');
+        crewEls.forEach((el, i) => {
+            setTimeout(() => {
+                el.style.transition = `opacity .9s ease, transform .04s linear`;
+                el.style.opacity = '1';
+            }, 1200 + i * 180);
+        });
+
+        // ============================================================
+        // CONTINUOUS ANIMATIONS
+        // ============================================================
+        let shipT = 0;
+        const crewState = Array.from({ length: CREW.length }, (_, i) => ({
+            floatY: 0, tilt: 0, basePhase: i * 0.65, armSwing: 0
+        }));
+
+        (function mainAnim() {
+            shipT += 0.35;
+            // Ship bob
+            const bob = Math.sin(shipT * 0.016) * 5;
+            const sway = Math.sin(shipT * 0.011) * 1.8;
+            if (shipSvg) shipSvg.style.transform = `translateY(${bob}px) rotate(${sway}deg)`;
+
+            // Each crew member floats independently
+            crewEls.forEach((el, i) => {
+                const cs = crewState[i];
+                cs.floatY = Math.sin(shipT * 0.018 + cs.basePhase) * 10;
+                cs.tilt = Math.sin(shipT * 0.013 + cs.basePhase * 1.2) * 2.8;
+                el._floatY = cs.floatY;
+                el._tilt = cs.tilt;
+                // Apply only if not being scroll-transformed (apply base float)
+                if (!el._scrollY) {
+                    el.style.transform = `translateY(${cs.floatY}px) rotate(${cs.tilt}deg)`;
+                }
+            });
+            requestAnimationFrame(mainAnim);
+        })();
+
+        // ============================================================
+        // SCROLL HANDLER
+        // ============================================================
+        const stage = document.getElementById('scene');
+        const moon = document.getElementById('moon');
+
+        window.addEventListener('scroll', () => {
+            const sy = window.scrollY;
+            const wh = window.innerHeight;
+            const prog = sy / wh;
+
+            // Ship scroll
+            if (shipPos > -950) {
+                const scrollShift = -sy * 0.09;
+                const scrollRock = Math.sin(sy * 0.008) * 3;
+                shipWrap.style.transform = `translateY(${scrollShift}px) rotate(${scrollRock}deg)`;
+            }
+
+            // Crew scroll + parade effect
+            crewEls.forEach((el, i) => {
+                const cs = crewState[i];
+                const spread = (i - 4.5) * 6 * Math.min(prog, 1.2);
+                const floatUp = sy * 0.1;
+                const fy = cs.floatY || 0;
+                const tilt = cs.tilt || 0;
+                el.style.transform = `translateY(${fy - floatUp}px) translateX(${spread}px) rotate(${tilt}deg)`;
+                // Fade as scroll past hero
+                el.style.opacity = prog > 0.85 ? String(Math.max(0, 1 - (prog - 0.85) * 6)) : '1';
+            });
+
+            // Moon parallax
+            moon.style.transform = `translateY(${sy * 0.04}px)`;
+
+            // Stage fade
+            stage.style.opacity = String(Math.max(0, 1 - prog * 0.42));
+            stage.style.transform = `scale(${1 - prog * 0.025})`;
+        }, { passive: true });
+
+        // ============================================================
+        // INTERSECTION OBSERVER
+        // ============================================================
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('on');
+                    const bar = e.target.querySelector('.skb');
+                    if (bar) bar.style.transform = 'scaleX(1)';
+                }
+            });
+        }, { threshold: .1 });
+        document.querySelectorAll('.fu,.skc,.cc,.ei,.pjc').forEach(el => obs.observe(el));
+        document.querySelectorAll('.cc').forEach((c, i) => {
+            c.style.transitionDelay = `${i * .07}s`;
+            obs.observe(c);
+        });
+
+        // ============================================================
+        // FLOATING PARTICLES
+        // ============================================================
+        const pStyle = document.createElement('style');
+        pStyle.textContent = `@keyframes pFl{0%{opacity:0;transform:translateY(0) scale(0) rotate(0deg);}15%{opacity:.9;}85%{opacity:.3;}100%{opacity:0;transform:translateY(-110vh) scale(.2) rotate(720deg);}}`;
+        document.head.appendChild(pStyle);
+        function spawnP() {
+            const p = document.createElement('div');
+            const sz = Math.random() * 5 + 2, isG = Math.random() > .4;
+            p.style.cssText = `position:fixed;bottom:-10px;left:${Math.random() * 100}%;width:${sz}px;height:${sz}px;border-radius:${Math.random() > .5 ? '50%' : '2px'};background:${isG ? '#FFD700' : '#00B4D8'};pointer-events:none;z-index:5;animation:pFl ${Math.random() * 12 + 7}s ease-in-out forwards;`;
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), (Math.random() * 12 + 7) * 1000);
+        }
+        setInterval(spawnP, 550);
+
+    </script>
+</body>
+
+</html>
