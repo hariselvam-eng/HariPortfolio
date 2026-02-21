@@ -643,85 +643,188 @@
             color: var(--gold);
         }
 
-        /* SKILLS */
-        .skg {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            max-width: 1050px;
+        /* SKILLS — Devil Fruit Arsenal */
+        .sk-categories {
+            max-width: 1100px;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 48px;
+        }
+
+        .sk-cat {
+            /* animation handled by .fu class */
+        }
+        .sk-cat.on {
+            /* handled by .fu.on */
+        }
+
+        .sk-cat-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 22px;
+        }
+
+        .sk-cat-orb {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            position: relative;
+        }
+        .sk-cat-orb::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 1.5px solid currentColor;
+            opacity: .35;
+            animation: orbPulse 2.5s ease-in-out infinite;
+        }
+        @keyframes orbPulse {
+            0%,100% { transform: scale(1); opacity: .35; }
+            50% { transform: scale(1.15); opacity: .7; }
+        }
+
+        .orb-gold { background: radial-gradient(circle at 35% 35%, #ffe066, #c87800); color: #FFD700; box-shadow: 0 0 28px rgba(255,215,0,.5); }
+        .orb-teal { background: radial-gradient(circle at 35% 35%, #4ddeff, #006080); color: #00B4D8; box-shadow: 0 0 28px rgba(0,180,216,.5); }
+        .orb-red  { background: radial-gradient(circle at 35% 35%, #ff6060, #7a0000); color: #CC1C1C; box-shadow: 0 0 28px rgba(204,28,28,.5); }
+        .orb-purple { background: radial-gradient(circle at 35% 35%, #c084fc, #4c1d95); color: #a855f7; box-shadow: 0 0 28px rgba(168,85,247,.4); }
+
+        .sk-cat-label {
+            font-family: 'Cinzel', serif;
+            font-size: .75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        .sk-cat-label span {
+            display: block;
+            font-size: 1.15rem;
+            letter-spacing: 1px;
+            color: var(--white);
+            margin-top: 2px;
+            font-weight: 700;
+        }
+        .label-gold { color: var(--gold); }
+        .label-teal { color: var(--teal); }
+        .label-red  { color: #ff6060; }
+        .label-purple { color: #c084fc; }
+
+        .sk-cat-line {
+            flex: 1;
+            height: 1px;
+            opacity: .2;
+        }
+        .line-gold { background: linear-gradient(90deg, #FFD700, transparent); }
+        .line-teal { background: linear-gradient(90deg, #00B4D8, transparent); }
+        .line-red  { background: linear-gradient(90deg, #ff6060, transparent); }
+        .line-purple { background: linear-gradient(90deg, #c084fc, transparent); }
+
+        .sk-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
         }
 
         .skc {
-            background: linear-gradient(135deg, rgba(10, 14, 42, .92), rgba(13, 33, 55, .92));
-            border: 1px solid rgba(255, 215, 0, .18);
-            padding: 26px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, rgba(10, 14, 42, .92), rgba(13, 33, 55, .88));
+            border: 1px solid rgba(255,215,0,.12);
+            padding: 14px 20px;
             position: relative;
             overflow: hidden;
-            transition: all .4s;
+            transition: all .35s cubic-bezier(.25,.46,.45,.94);
+            cursor: default;
+            clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
         }
 
         .skc::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 3px;
-            height: 0;
-            background: var(--gold);
-            transition: height .4s;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,215,0,.06) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity .35s;
         }
 
         .skc:hover {
-            border-color: rgba(255, 215, 0, .55);
-            transform: translateY(-6px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, .4);
+            transform: translateY(-4px) scale(1.03);
         }
+        .skc:hover::before { opacity: 1; }
 
-        .skc:hover::before {
-            height: 100%;
-        }
+        .skc-gold  { border-color: rgba(255,215,0,.22); }
+        .skc-gold:hover  { border-color: rgba(255,215,0,.6); box-shadow: 0 16px 48px rgba(255,215,0,.12); }
+        .skc-teal  { border-color: rgba(0,180,216,.22); }
+        .skc-teal:hover  { border-color: rgba(0,180,216,.6); box-shadow: 0 16px 48px rgba(0,180,216,.12); }
+        .skc-red   { border-color: rgba(204,28,28,.22); }
+        .skc-red:hover   { border-color: rgba(255,80,80,.6); box-shadow: 0 16px 48px rgba(204,28,28,.15); }
+        .skc-purple { border-color: rgba(168,85,247,.22); }
+        .skc-purple:hover { border-color: rgba(168,85,247,.6); box-shadow: 0 16px 48px rgba(168,85,247,.12); }
 
         .skie {
-            font-size: 2rem;
-            margin-bottom: 10px;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 6px rgba(255,215,0,.4));
         }
+
+        .sk-info { flex: 1; min-width: 0; }
 
         .sknm {
             font-family: 'Cinzel', serif;
-            font-size: .82rem;
-            letter-spacing: 2px;
-            color: var(--gold);
+            font-size: .78rem;
+            letter-spacing: 1.5px;
+            color: var(--white);
             text-transform: uppercase;
-            margin-bottom: 5px;
+            white-space: nowrap;
         }
 
         .sksb {
-            font-size: .77rem;
-            color: rgba(245, 240, 232, .5);
-            margin-bottom: 10px;
+            font-size: .72rem;
+            color: rgba(245, 240, 232, .4);
+            margin-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .skbb {
-            width: 100%;
-            height: 3px;
-            background: rgba(255, 255, 255, .08);
-            border-radius: 2px;
-            overflow: hidden;
+            width: 48px;
+            height: 48px;
+            flex-shrink: 0;
+            position: relative;
         }
-
+        .skbb svg { transform: rotate(-90deg); }
+        .skb-track { fill: none; stroke: rgba(255,255,255,.07); stroke-width: 3; }
         .skb {
-            height: 100%;
-            background: linear-gradient(90deg, var(--gold), var(--gold2));
-            border-radius: 2px;
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 1.4s cubic-bezier(.25, .46, .45, .94);
+            fill: none;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-dasharray: 113;
+            stroke-dashoffset: 113;
+            transition: stroke-dashoffset 1.4s cubic-bezier(.25,.46,.45,.94);
         }
 
-        .skc.on .skb {
-            transform: scaleX(1);
+        .skc.on .skb { stroke-dashoffset: var(--dash-target); }
+
+        .sk-pct {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Cinzel', serif;
+            font-size: .58rem;
+            color: rgba(245,240,232,.6);
+            letter-spacing: 0;
         }
+
 
         /* PROJECTS */
         .proj-list {
@@ -1198,133 +1301,69 @@
         <!-- SKILLS -->
         <section class="cs" id="skills"
             style="background:linear-gradient(180deg,rgba(10,14,42,.94),rgba(13,33,55,.96));">
-            <div class="secdiv">
-                <div class="dl"></div>
-                <h2 class="stl">⚔️ The Pirate's Arsenal ⚔️</h2>
-                <div class="dl"></div>
+             <div class="sk-categories">
+
+                <!-- WEB MASTERY -->
+                <div class="sk-cat fu">
+                    <div class="sk-cat-header">
+                        <div class="sk-cat-orb orb-gold">🌊</div>
+                        <div class="sk-cat-label label-gold">Paramecia Fruit<span>Web Mastery</span></div>
+                        <div class="sk-cat-line line-gold"></div>
+                    </div>
+                    <div class="sk-pills">
+                        <div class="skc skc-gold fu"><div class="skie">🌐</div><div class="sk-info"><div class="sknm">HTML</div><div class="sksb">Semantic · Forms · Accessibility</div></div><div class="skbb"><svg viewBox="0 0 40 40" width="48" height="48"><circle class="skb-track" cx="20" cy="20" r="18"/><circle class="skb" cx="20" cy="20" r="18" stroke="#FFD700" style="--dash-target:11.3"/></svg><div class="sk-pct">90%</div></div></div>
+                        <div class="skc skc-gold fu"><div class="skie">🎨</div><div class="sk-info"><div class="sknm">CSS</div><div class="sksb">Flexbox · Grid · Animations</div></div><div class="skbb"><svg viewBox="0 0 40 40" width="48" height="48"><circle class="skb-track" cx="20" cy="20" r="18"/><circle class="skb" cx="20" cy="20" r="18" stroke="#FFD700" style="--dash-target:17"/></svg><div class="sk-pct">85%</div></div></div>
+                        <div class="skc skc-gold fu"><div class="skie">⚡</div><div class="sk-info"><div class="sknm">JavaScript</div><div class="sksb">DOM · Events · Logic</div></div><div class="skbb"><svg viewBox="0 0 40 40" width="48" height="48"><circle class="skb-track" cx="20" cy="20" r="18"/><circle class="skb" cx="20" cy="20" r="18" stroke="#FFD700" style="--dash-target:28.3"/></svg><div class="sk-pct">75%</div></div></div>
+                        <div class="skc skc-gold fu"><div class="skie">⚛️</div><div class="sk-info"><div class="sknm">React</div><div class="sksb">Components · Hooks · State</div></div><div class="skbb"><svg viewBox="0 0 40 40" width="48" height="48"><circle class="skb-track" cx="20" cy="20" r="18"/><circle class="skb" cx="20" cy="20" r="18" stroke="#FFD700" style="--dash-target:31.6"/></svg><div class="sk-pct">72%</div></div></div>
+                        <div class="skc skc-gold fu"><div class="skie">🅱️</div><div class="sk-info"><div class="sknm">Bootstrap</div><div class="sksb">Grid · Components · Responsive</div></div><div class="skbb"><svg viewBox="0 0 40 40" width="48" height="48"><circle class="skb-track" cx="20" cy="20" r="18"/><circle class="skb" cx="20" cy="20" r="18" stroke="#FFD700" style="--dash-target:22.6"/></svg><div class="sk-pct">80%</div></div></div>
+                    </div>
+                </div>
+
+                <!-- AI / ML -->
+                <div class="sk-cat fu">
+                    <div class="sk-cat-header">
+                        <div class="sk-cat-orb orb-teal">🧬</div>
+                        <div class="sk-cat-label label-teal">Logia Fruit<span>AI & Intelligence</span></div>
+                        <div class="sk-cat-line line-teal"></div>
+                    </div>
+                    <div class="sk-pills">
+                        <div class="skc skc-teal fu"><div class="skie">🐍</div><div class="sk-info"><div class="sknm">Python</div><div class="sksb">OpenCV · YOLO · Tkinter</div></div><div class="skbb"><svg viewBox="0 0 40 40" width="48" height="48"><circle class="skb-track" cx="20" cy="20" r="18"/><circle class="skb" cx="20" cy="20" r="18" stroke="#00B4D8" style="--dash-target:31.6"/></svg><div class="sk-pct">72%</div></div></div>
+                        <div class="skc skc-teal fu"><div class="skie">🤖</div><div class="sk-info"><div class="sknm">Artificial Intelligence</div><div class="sksb">Computer Vision · Detection</div></div><div class="skbb"><svg viewBox="0 0 40 40" width="48" height="48"><circle class="skb-track" cx="20" cy="20" r="18"/><circle class="skb" cx="20" cy="20" r="18" stroke="#00B4D8" style="--dash-target:39.6"/></svg><div class="sk-pct">65%</div></div></div>
+                        <div class="skc skc-teal fu"><div class="skie">🧠</div><div class="sk-info"><div class="sknm">Machine Learning</div><div class="sksb">Supervised · Model Training</div></div><div class="skbb"><svg viewBox="0 0 40 40" width="48" height="48"><circle class="skb-track" cx="20" cy="20" r="18"/><circle class="skb" cx="20" cy="20" r="18" stroke="#00B4D8" style="--dash-target:45.2"/></svg><div class="sk-pct">60%</div></div></div>
+                        <div class="skc skc-teal fu"><div class="skie">🚁</div><div class="sk-info"><div class="sknm">Computer Vision</div><div class="sksb">YOLO · Object Detection</div></div><div class="skbb"><svg viewBox="0 0 40 40" width="48" height="48"><circle class="skb-track" cx="20" cy="20" r="18"/><circle class="skb" cx="20" cy="20" r="18" stroke="#00B4D8" style="--dash-target:45.2"/></svg><div class="sk-pct">60%</div></div></div>
+                    </div>
+                </div>
+
+                <!-- SYSTEMS -->
+                <div class="sk-cat fu">
+                    <div class="sk-cat-header">
+                        <div class="sk-cat-orb orb-red">⚙️</div>
+                        <div class="sk-cat-label label-red">Zoan Fruit<span>Systems & Languages</span></div>
+                        <div class="sk-cat-line line-red"></div>
+                    </div>
+                    <div class="sk-pills">
+                        <div class="skc skc-red fu"><div class="skie">⚙️</div><div class="sk-info"><div class="sknm">C / C++</div><div class="sksb">Systems · Logic · Algorithms</div></div><div class="skbb"><svg viewBox="0 0 40 40" width="48" height="48"><circle class="skb-track" cx="20" cy="20" r="18"/><circle class="skb" cx="20" cy="20" r="18" stroke="#ff6060" style="--dash-target:39.6"/></svg><div class="sk-pct">65%</div></div></div>
+                        <div class="skc skc-red fu"><div class="skie">🗄️</div><div class="sk-info"><div class="sknm">MySQL</div><div class="sksb">Schema Design · ERP · Queries</div></div><div class="skbb"><svg viewBox="0 0 40 40" width="48" height="48"><circle class="skb-track" cx="20" cy="20" r="18"/><circle class="skb" cx="20" cy="20" r="18" stroke="#ff6060" style="--dash-target:45.2"/></svg><div class="sk-pct">60%</div></div></div>
+                        <div class="skc skc-red fu"><div class="skie">🖥️</div><div class="sk-info"><div class="sknm">Desktop Dev</div><div class="sksb">Tkinter · GUI · ERP Systems</div></div><div class="skbb"><svg viewBox="0 0 40 40" width="48" height="48"><circle class="skb-track" cx="20" cy="20" r="18"/><circle class="skb" cx="20" cy="20" r="18" stroke="#ff6060" style="--dash-target:47.4"/></svg><div class="sk-pct">58%</div></div></div>
+                    </div>
+                </div>
+
+                <!-- TOOLS -->
+                <div class="sk-cat fu">
+                    <div class="sk-cat-header">
+                        <div class="sk-cat-orb orb-purple">🔱</div>
+                        <div class="sk-cat-label label-purple">Haki Power<span>Tools & Professional</span></div>
+                        <div class="sk-cat-line line-purple"></div>
+                    </div>
+                    <div class="sk-pills">
+                        <div class="skc skc-purple fu"><div class="skie">📐</div><div class="sk-info"><div class="sknm">AutoCAD</div><div class="sksb">Technical Drafting</div></div><div class="skbb"><svg viewBox="0 0 40 40" width="48" height="48"><circle class="skb-track" cx="20" cy="20" r="18"/><circle class="skb" cx="20" cy="20" r="18" stroke="#c084fc" style="--dash-target:50.9"/></svg><div class="sk-pct">55%</div></div></div>
+                        <div class="skc skc-purple fu"><div class="skie">💼</div><div class="sk-info"><div class="sknm">MS Office</div><div class="sksb">Word · Excel · PowerPoint</div></div><div class="skbb"><svg viewBox="0 0 40 40" width="48" height="48"><circle class="skb-track" cx="20" cy="20" r="18"/><circle class="skb" cx="20" cy="20" r="18" stroke="#c084fc" style="--dash-target:17"/></svg><div class="sk-pct">85%</div></div></div>
+                        <div class="skc skc-purple fu"><div class="skie">⌨️</div><div class="sk-info"><div class="sknm">Typewriting</div><div class="sksb">English & Tamil Higher</div></div><div class="skbb"><svg viewBox="0 0 40 40" width="48" height="48"><circle class="skb-track" cx="20" cy="20" r="18"/><circle class="skb" cx="20" cy="20" r="18" stroke="#c084fc" style="--dash-target:11.3"/></svg><div class="sk-pct">90%</div></div></div>
+                    </div>
+                </div>
+
             </div>
-            <div class="skg">
-                <div class="skc fu">
-                    <div class="skie">🐍</div>
-                    <div class="sknm">Python</div>
-                    <div class="sksb">OpenCV · YOLO · Tkinter · MySQL</div>
-                    <div class="skbb">
-                        <div class="skb" style="width:72%"></div>
-                    </div>
-                </div>
-                <div class="skc fu">
-                    <div class="skie">⚛️</div>
-                    <div class="sknm">React</div>
-                    <div class="sksb">Components · Hooks · JSX · State Management</div>
-                    <div class="skbb">
-                        <div class="skb" style="width:72%"></div>
-                    </div>
-                </div>
-                <div class="skc fu">
-                    <div class="skie">🌐</div>
-                    <div class="sknm">HTML</div>
-                    <div class="sksb">Semantic Tags · Forms · Structure · Accessibility</div>
-                    <div class="skbb">
-                        <div class="skb" style="width:90%"></div>
-                    </div>
-                </div>
-                <div class="skc fu">
-                    <div class="skie">🎨</div>
-                    <div class="sknm">CSS</div>
-                    <div class="sksb">Flexbox · Grid · Animations · Responsive Design</div>
-                    <div class="skbb">
-                        <div class="skb" style="width:85%"></div>
-                    </div>
-                </div>
-                <div class="skc fu">
-                    <div class="skie">⚡</div>
-                    <div class="sknm">JavaScript</div>
-                    <div class="sksb">DOM · Events · Functions · Basic Logic</div>
-                    <div class="skbb">
-                        <div class="skb" style="width:75%"></div>
-                    </div>
-                </div>
-                <div class="skc fu">
-                    <div class="skie">🅱️</div>
-                    <div class="sknm">Bootstrap</div>
-                    <div class="sksb">Grid System · Components · Responsive Layout</div>
-                    <div class="skbb">
-                        <div class="skb" style="width:80%"></div>
-                    </div>
-                </div>
-                <div class="skc fu">
-                    <div class="skie">🤖</div>
-                    <div class="sknm">Artificial Intelligence</div>
-                    <div class="sksb">Basics · Computer Vision · Object Detection</div>
-                    <div class="skbb">
-                        <div class="skb" style="width:65%"></div>
-                    </div>
-                </div>
-                <div class="skc fu">
-                    <div class="skie">🧠</div>
-                    <div class="sknm">Machine Learning</div>
-                    <div class="sksb">Supervised Learning · Model Training · Data Processing</div>
-                    <div class="skbb">
-                        <div class="skb" style="width:60%"></div>
-                    </div>
-                </div>
-                <div class="skc fu" style="transition-delay:.08s">
-                    <div class="skie">⚙️</div>
-                    <div class="sknm">C / C++</div>
-                    <div class="sksb">Systems · Logic · Algorithms</div>
-                    <div class="skbb">
-                        <div class="skb" style="width:65%"></div>
-                    </div>
-                </div>
-                <div class="skc fu" style="transition-delay:.16s">
-                    <div class="skie">🗄️</div>
-                    <div class="sknm">MySQL</div>
-                    <div class="sksb">Schema Design · ERP · Queries</div>
-                    <div class="skbb">
-                        <div class="skb" style="width:60%"></div>
-                    </div>
-                </div>
-                <div class="skc fu" style="transition-delay:.24s">
-                    <div class="skie">📐</div>
-                    <div class="sknm">AutoCAD</div>
-                    <div class="sksb">Technical Drafting</div>
-                    <div class="skbb">
-                        <div class="skb" style="width:55%"></div>
-                    </div>
-                </div>
-                <div class="skc fu" style="transition-delay:.32s">
-                    <div class="skie">💼</div>
-                    <div class="sknm">MS Office</div>
-                    <div class="sksb">Word · Excel · PowerPoint</div>
-                    <div class="skbb">
-                        <div class="skb" style="width:85%"></div>
-                    </div>
-                </div>
-                <div class="skc fu" style="transition-delay:.4s">
-                    <div class="skie">⌨️</div>
-                    <div class="sknm">Typewriting</div>
-                    <div class="sksb">English & Tamil Higher</div>
-                    <div class="skbb">
-                        <div class="skb" style="width:90%"></div>
-                    </div>
-                </div>
-                <div class="skc fu" style="transition-delay:.48s">
-                    <div class="skie">🚁</div>
-                    <div class="sknm">Computer Vision</div>
-                    <div class="sksb">Object Detection · YOLO</div>
-                    <div class="skbb">
-                        <div class="skb" style="width:60%"></div>
-                    </div>
-                </div>
-                <div class="skc fu" style="transition-delay:.56s">
-                    <div class="skie">🖥️</div>
-                    <div class="sknm">Desktop Dev</div>
-                    <div class="sksb">Tkinter · GUI · ERP Systems</div>
-                    <div class="skbb">
-                        <div class="skb" style="width:58%"></div>
-                    </div>
-                </div>
-            </div>
+
         </section>
 
         <!-- PROJECTS -->
@@ -2233,6 +2272,5 @@
 
     </script>
 </body>
-
 
 </html>
